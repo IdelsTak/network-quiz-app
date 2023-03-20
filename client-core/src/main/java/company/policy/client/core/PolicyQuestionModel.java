@@ -327,7 +327,7 @@ public class PolicyQuestionModel implements Comparable<PolicyQuestionModel> {
         @Override
         public PolicyQuestionModel apply(String s) {
             PolicyQuestionModel model = new PolicyQuestionModel();
-            String[] fields = s.split("\n");
+            String[] fields = s.split(System.lineSeparator());
 
             if (fields.length == 12) {
                 model.setStaffName(fields[0]);
