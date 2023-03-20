@@ -17,6 +17,7 @@ import java.net.UnknownHostException;
 import static java.text.MessageFormat.format;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -333,9 +334,10 @@ public class QuizViewController implements ChatClient {
 
             e.consume();
         });
+        String perfectPoliciesQuizDatatxt = /*Locale.getDefault().equals(Locale.ITALY) ? "" :*/ "PerfectPoliciesQuizData_it.txt";
 
         // Reading in of the data file
-        try (DataInputStream in = new DataInputStream(getClass().getResourceAsStream("PerfectPoliciesQuizData.txt")); BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+        try (DataInputStream in = new DataInputStream(getClass().getResourceAsStream(perfectPoliciesQuizDatatxt)); BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
 
             String lineInDataFile;
 
