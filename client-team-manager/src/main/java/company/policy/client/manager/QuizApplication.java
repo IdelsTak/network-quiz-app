@@ -11,7 +11,7 @@ import javafx.stage.StageStyle;
 
 public class QuizApplication extends Application {
 
-    public static final ResourceBundle RB = ResourceBundle.getBundle("i18n/messages", Locale.ITALY);
+    public static final ResourceBundle RB = ResourceBundle.getBundle("i18n/messages", Locale.getDefault());
 
     public static void main(String[] args) {
         launch(args);
