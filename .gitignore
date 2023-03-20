@@ -26,3 +26,4 @@ replay_pid*
 /client-staff/target/
 /client-team-manager/target/
 /server/target/
+/client-core/nbproject/
