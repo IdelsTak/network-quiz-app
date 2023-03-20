@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="520.0" prefWidth="574.0" style="-fx-background-color: #163864;" stylesheets="@App.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="company.policy.client.manager.TreeViewController">
+<AnchorPane prefHeight="520.0" prefWidth="574.0" style="-fx-background-color: #163864;" stylesheets="@App.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="company.policy.client.manager.TreeViewController">
     <children>
         <Pane prefHeight="66.0" prefWidth="573.0" style="-fx-background-color: #2C64B6;">
             <children>
-                <Label fx:id="lblPolicyQuestionMainHeader" alignment="CENTER" layoutX="89.0" prefHeight="66.0" prefWidth="395.0" text="Binary Tree" textFill="WHITE">
+                <Label fx:id="lblPolicyQuestionMainHeader" alignment="CENTER" layoutX="89.0" prefHeight="66.0" prefWidth="395.0" text="%label.binary_tree" textFill="WHITE">
                     <font>
                         <Font size="36.0" />
                     </font>
@@ -19,6 +19,6 @@
             </children>
         </Pane>
       <TextArea fx:id="treeViewTextArea" layoutX="14.0" layoutY="75.0" prefHeight="377.0" prefWidth="543.0" />
-        <Button layoutX="396.0" layoutY="465.0" mnemonicParsing="false" onAction="#closeTreeView" prefHeight="44.0" prefWidth="158.0" style="-fx-background-color: #2C64B6;" text="Close" />
+        <Button layoutX="396.0" layoutY="465.0" mnemonicParsing="false" onAction="#closeTreeView" prefHeight="44.0" prefWidth="158.0" style="-fx-background-color: #2C64B6;" text="%button.close" />
     </children>
 </AnchorPane>
