@@ -6,9 +6,12 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import static java.text.MessageFormat.format;
+import java.util.ResourceBundle;
 
 class ChatServerThread extends Thread {
 
+    private final ResourceBundle RB = ResourceBundle.getBundle("i18n/messages_en");
     private ChatServer server = null;
     private Socket socket = null;
     private int ID = -1;
@@ -17,25 +20,26 @@ class ChatServerThread extends Thread {
 
     ChatServerThread(ChatServer server, Socket socket) {
         super();
-        
+
         this.server = server;
         this.socket = socket;
-        
+
         ID = socket.getPort();
     }
 
     @Override
     public void run() {
-        System.out.println("Server Thread " + ID + " running.");
+        System.out.println(format(RB.getString("server_thread_running"), new Object[]{ID}));
         while (true) {
             try {
                 server.handle(ID, streamIn.readUTF());
             } catch (IOException ioe) {
-                System.out.println(ID + " ERROR reading: " + ioe.getMessage());
+                System.out.println(format(RB.getString("error_reading"), new Object[]{ID, ioe.getMessage()}));
                 server.remove(ID);
                 stop();
             }
         }
+
     }
 
     void send(String msg) {
@@ -43,10 +47,10 @@ class ChatServerThread extends Thread {
             streamOut.writeUTF(msg);
             streamOut.flush();
         } catch (IOException ioe) {
-            System.out.println(ID + " ERROR sending: " + ioe.getMessage());
-            server.remove(ID);
-            stop();
+            System.out.println(format(RB.getString("error_sending"), new Object[]{ID, ioe.getMessage()}));
         }
+        server.remove(ID);
+        stop();
     }
 
     int getID() {
