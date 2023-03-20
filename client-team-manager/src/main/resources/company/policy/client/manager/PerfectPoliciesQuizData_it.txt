@@ -1,0 +1,110 @@
+DomandaNumero
+Argomento
+Sottoargomento
+Domanda
+RispostaA
+RispostaB
+RispostaC
+RispostaD
+RispostaE
+Risposta corretta
+11
+OHS
+Lavorare in quota
+Quando cerco di lavorare in quota, devo rivedere:
+La SOP della nostra azienda - Lavorare in quota
+La politica sulla privacy della nostra azienda
+Le nostre schede di sicurezza chimica
+La politica sul copyright della nostra azienda
+La politica di acquisto della nostra azienda
+1
+12
+Diritto d'autore
+Materiali protetti da copyright del cliente
+Con materiale protetto da copyright del nostro cliente:
+Conservare solo in formato cartaceo in uno schedario chiuso a chiave
+Conservare tali materiali solo sulla nostra rete protetta
+Offuscarlo in modo da renderlo di difficile interpretazione
+Limita la visualizzazione al solo personale amministrativo
+Inoltra ad altri sviluppatori via e-mail
+2
+13
+Riservatezza
+Dettagli del personale
+Dati personali del personale:
+Non dovrebbe mai essere visto da alcuno staff a nessun livello
+Visibile solo dal personale delle Risorse Umane
+Devono essere gestiti nel sistema di database protetto della nostra azienda
+Dovrebbe essere sempre e solo inviato via e-mail
+Dovrebbero essere conservati solo in formato cartaceo in schedari chiusi a chiave
+3
+41
+OHS
+Pericoli
+Nel caso in cui noti un potenziale pericolo:
+Notalo per una considerazione successiva
+Segnalalo immediatamente a un responsabile OHS
+Compila una scheda di dati di sicurezza
+Aggiungilo alla politica di acquisto della nostra azienda
+Creare una nuova SOP (procedura operativa sicura)
+2
+42
+Diritto d'autore
+Acquisto di materiale protetto da copyright
+Quando si acquista materiale protetto da copyright da una fonte di terze parti:
+Richiedere la proprietà del copyright ove appropriato e fattibile per farlo
+Acquista solo materiale di cui possiamo detenere il copyright
+Acquista solo materiale di cui i nostri clienti possono detenere il copyright
+Conservare una copia dell'informativa privacy allegata al materiale acquistato
+Crea una nuova politica di acquisto specifica per quell'acquisto
+1
+56
+OHS
+Incidenti
+Se si è coinvolti o si è testimoni di un incidente relativo alla SSL, è necessario:
+Notalo per una considerazione successiva
+Compila una scheda di dati di sicurezza
+Aggiungilo alla politica di acquisto della nostra azienda
+Segnalalo immediatamente a un OHS o a un responsabile della sicurezza
+Creare una nuova SOP (procedura operativa sicura)
+4
+71
+Diritto d'autore
+Materiali interni protetti da copyright
+Con il materiale protetto da copyright della nostra organizzazione:
+Offuscarlo in modo da renderlo di difficile interpretazione
+Limita la visualizzazione al solo personale amministrativo
+Conservare solo in formato cartaceo in uno schedario chiuso a chiave
+Conservare tali materiali solo sulla nostra rete protetta
+Inoltra ad altri sviluppatori via e-mail
+4
+72
+OHS
+Lavoro in spazi ristretti
+Quando cerco di lavorare in uno spazio ristretto, devo rivedere:
+La SOP della nostra azienda - Lavorare in quota
+La SOP della nostra azienda - Parcheggio veicoli
+Le nostre schede di sicurezza chimica
+La politica sul copyright della nostra azienda
+La SOP della nostra azienda - Lavorare in uno spazio confinato
+5
+82
+Riservatezza
+Dettagli cliente
+Con Commercial in Confidence Client Details, siamo tenuti a:
+Memorizza tali dettagli solo sulla nostra rete protetta
+Conservare solo in formato cartaceo in uno schedario chiuso a chiave
+Offuscarlo in modo da renderlo di difficile interpretazione
+Visibile solo dallo staff amministrativo
+Può essere lasciato non garantito
+1
+87
+OHS
+Kit di pronto soccorso
+In relazione alle Cassette di Primo Soccorso nei vari reparti:
+Lasciali dove sono stati usati l'ultima volta
+Mettili sopra i fornelli nelle cucine dei reparti
+Assicurarsi che siano tenuti adeguatamente immagazzinati
+Mostrare la segnaletica appropriata solo quando richiesto
+Compila una scheda di dati di sicurezza ad ogni utilizzo
+3
