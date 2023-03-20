@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import static java.text.MessageFormat.format;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -129,7 +130,7 @@ public class QuizViewController implements ChatClient {
                 socket.close();
             }
         } catch (IOException ioe) {
-            println("Error closing ...");
+            println(format(RB.getString("error_closing")));
         }
 
         if (client != null) {
@@ -150,7 +151,7 @@ public class QuizViewController implements ChatClient {
 
     private void doHandle(String msg) {
         if (msg.equals(".bye")) {
-            println("Good bye. Press EXIT button to exit ...");
+            println(format(RB.getString("goodbye_press_exit")));
             stop();
         } else {
             msg = msg.substring(msg.indexOf(":") + 1, msg.length());
@@ -229,7 +230,7 @@ public class QuizViewController implements ChatClient {
         public String toString() {
             return traversedModels.stream()
                     .map(value -> String.format("%d - %s (%s)", value.getPolicyQuestionNumber(), value.getPolicyTopic(), value.getPolicySubTopic()))
-                    .collect(Collectors.joining(", ", "IN-ORDER: ", ""));
+                    .collect(Collectors.joining(", ", format(RB.getString("inorder_delimiter")), ""));
         }
 
     }
@@ -250,7 +251,7 @@ public class QuizViewController implements ChatClient {
         public String toString() {
             return traversedModels.stream()
                     .map(value -> String.format("%d - %s (%s)", value.getPolicyQuestionNumber(), value.getPolicyTopic(), value.getPolicySubTopic()))
-                    .collect(Collectors.joining(", ", "PRE-ORDER: ", ""));
+                    .collect(Collectors.joining(", ", format(RB.getString("preorder_delimiter")), ""));
         }
 
     }
@@ -271,7 +272,7 @@ public class QuizViewController implements ChatClient {
         public String toString() {
             return traversedModels.stream()
                     .map(value -> String.format("%d - %s (%s)", value.getPolicyQuestionNumber(), value.getPolicyTopic(), value.getPolicySubTopic()))
-                    .collect(Collectors.joining(", ", "POST-ORDER: ", ""));
+                    .collect(Collectors.joining(", ", format(RB.getString("postorder_delimiter")), ""));
         }
 
     }
@@ -324,7 +325,7 @@ public class QuizViewController implements ChatClient {
 
                 if (tree != null) {
                     BinaryTreePrinter btp = new BinaryTreePrinter(tree.root);
-                    
+
                     treeViewTArea.setText(btp.print());
                 }
             } catch (IOException ex) {
@@ -334,7 +335,7 @@ public class QuizViewController implements ChatClient {
         });
 
         // Reading in of the data file
-        try ( DataInputStream in = new DataInputStream(getClass().getResourceAsStream("PerfectPoliciesQuizData.txt"));  BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+        try (DataInputStream in = new DataInputStream(getClass().getResourceAsStream("PerfectPoliciesQuizData.txt")); BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
 
             String lineInDataFile;
 
@@ -361,7 +362,7 @@ public class QuizViewController implements ChatClient {
             }
 
         } catch (IOException e) {
-            System.err.println("Error Occurred when attempting to read in the file: " + e.getMessage());
+            println(format(RB.getString("error_occurred_when_attempting_to_read_in_the_file"), e.getMessage()));
         }
 
         tableVeiw.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -488,18 +489,18 @@ public class QuizViewController implements ChatClient {
     }
 
     private void connect(String serverName, int serverPort) {
-        println("Establishing connection. Please wait ...");
+        println(format(RB.getString("establishing_connection")));
         try {
             socket = new Socket(serverName, serverPort);
-            println("Connected: " + socket);
+            println(format(RB.getString("connected"), socket));
             open();
 
             btnSend.setDisable(false);
             btnConnect.setDisable(true);
         } catch (UnknownHostException uhe) {
-            println("Host unknown: " + uhe.getMessage());
+            println(format(RB.getString("host_unknown"), uhe.getMessage()));
         } catch (IOException ioe) {
-            println("Unexpected exception: " + ioe.getMessage());
+            println(format(RB.getString("unexpected_exception"), ioe.getMessage()));
         }
     }
 
@@ -508,7 +509,7 @@ public class QuizViewController implements ChatClient {
             streamOut = new DataOutputStream(socket.getOutputStream());
             client = new ChatClientThread(this, socket);
         } catch (IOException ioe) {
-            println("Error opening output stream: " + ioe);
+            println(format(RB.getString("error_opening_output_stream"), ioe));
         }
     }
 
@@ -517,13 +518,13 @@ public class QuizViewController implements ChatClient {
             streamOut.writeUTF(modelAsString);
             streamOut.flush();
         } catch (IOException ioe) {
-            println("Sending error: " + ioe.getMessage());
+            println(format(RB.getString("sending_error"), ioe.getMessage()));
             stop();
         }
     }
 
     private void println(String msg) {
-        //display.appendText(msg + "\n");
+        //display.appendText(msg + System.lineSeparator());
         //this prints message whats happening
         lblMessage.setText(msg);
     }
