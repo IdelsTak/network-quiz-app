@@ -4,6 +4,7 @@ import company.policy.client.manager.dll.DoublyLinkedList;
 import company.policy.client.core.ChatClient;
 import company.policy.client.core.ChatClientThread;
 import company.policy.client.core.PolicyQuestionModel;
+import static company.policy.client.manager.QuizApplication.RB;
 import company.policy.client.manager.bt.BinaryTree;
 import company.policy.client.manager.bt.BinaryTreePrinter;
 import java.io.BufferedReader;
@@ -314,6 +315,7 @@ public class QuizViewController implements ChatClient {
 
                 Stage stage = (Stage) btnExit.getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("tree-view.fxml"));
+                fxmlLoader.setResources(RB);
                 stage.setScene(new Scene(fxmlLoader.load()));
 
                 TreeViewController controller = fxmlLoader.getController();
