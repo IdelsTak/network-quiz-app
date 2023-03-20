@@ -38,8 +38,6 @@ public class QuestionViewController implements ChatClient {
     @FXML
     private Label lblPolicyQuestionMainHeader;
     @FXML
-    private Label lblQuestionNumber;
-    @FXML
     private AnchorPane lblStaffName;
     @FXML
     private Label lblYourAnserClient;
