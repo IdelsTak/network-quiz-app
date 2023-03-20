@@ -1,12 +1,15 @@
 package company.policy.client.core;
 
-import company.policy.client.core.ChatClient;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
+import static java.text.MessageFormat.format;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class ChatClientThread extends Thread {
 
+    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("i18n/messages", Locale.getDefault());
     private final Socket socket;
     private final ChatClient client;
     private DataInputStream streamIn;
@@ -23,7 +26,7 @@ public class ChatClientThread extends Thread {
         try {
             streamIn = new DataInputStream(socket.getInputStream());
         } catch (IOException ioe) {
-            System.out.println("Error getting input stream: " + ioe);
+            System.out.println(format(BUNDLE.getString("error_getting_input_stream"), ioe));
             client.stop();
         }
     }
@@ -34,7 +37,7 @@ public class ChatClientThread extends Thread {
                 streamIn.close();
             }
         } catch (IOException ioe) {
-            System.out.println("Error closing input stream: " + ioe);
+            System.out.println(format(BUNDLE.getString("error_closing_input_stream"), ioe));
         }
     }
 
@@ -44,7 +47,7 @@ public class ChatClientThread extends Thread {
             try {
                 client.handle(streamIn.readUTF());
             } catch (IOException ioe) {
-                System.out.println("Listening error: " + ioe.getMessage());
+                System.out.println(format(BUNDLE.getString("listening_error"), ioe.getMessage()));
                 client.stop();
             }
         }
