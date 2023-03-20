@@ -33,7 +33,7 @@ public class BinaryTreePrinter {
 
         if (node != null) {
 
-            sb.append("\n");
+            sb.append(System.lineSeparator());
             sb.append(padding);
             sb.append(pointer);
             sb.append(node.value.getPolicyQuestionNumber());
