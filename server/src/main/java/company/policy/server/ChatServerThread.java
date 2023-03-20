@@ -7,11 +7,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import static java.text.MessageFormat.format;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 class ChatServerThread extends Thread {
 
-    private final ResourceBundle RB = ResourceBundle.getBundle("i18n/messages_en");
+    private final ResourceBundle RB = ResourceBundle.getBundle("i18n/messages", Locale.getDefault());
     private ChatServer server = null;
     private Socket socket = null;
     private int ID = -1;
