@@ -191,7 +191,7 @@
                   </Button>
                   <Pane layoutX="25.0" layoutY="636.0" prefHeight="40.0" prefWidth="906.0" style="-fx-background-color: #00569C;">
                      <children>
-                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="906.0" text="Linked List" textFill="WHITE">
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="906.0" text="%label.linked_list" textFill="WHITE">
                            <font>
                               <Font name="Source Sans Pro" size="18.0" />
                            </font>
@@ -200,7 +200,7 @@
                   </Pane>
                   <Pane layoutX="21.0" layoutY="770.0" prefHeight="40.0" prefWidth="914.0" style="-fx-background-color: #00569C;">
                      <children>
-                        <Label alignment="CENTER" layoutX="1.0" prefHeight="40.0" prefWidth="913.0" text="Binary Tree">
+                        <Label alignment="CENTER" layoutX="1.0" prefHeight="40.0" prefWidth="913.0" text="%label.binary_tree">
                            <font>
                               <Font name="Source Sans Pro" size="18.0" />
                            </font>
@@ -208,34 +208,34 @@
                         <TextArea fx:id="linkedListTArea" editable="false" layoutX="1.0" layoutY="-92.0" prefHeight="77.0" prefWidth="906.0" wrapText="true" />
                      </children>
                   </Pane>
-                  <Button fx:id="btnExit_2" layoutX="698.0" layoutY="941.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="236.0" style="-fx-background-color: #2C64B6;" text="Save" textFill="WHITE">
+                  <Button fx:id="btnExit_2" layoutX="698.0" layoutY="941.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="236.0" style="-fx-background-color: #2C64B6;" text="%button.save" textFill="WHITE">
                      <font>
                         <Font name="Source Sans Pro" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="displayTreeBtn" layoutX="698.0" layoutY="898.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="236.0" style="-fx-background-color: #2C64B6;" text="Display" textFill="WHITE">
+                  <Button fx:id="displayTreeBtn" layoutX="698.0" layoutY="898.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="236.0" style="-fx-background-color: #2C64B6;" text="%button.display" textFill="WHITE">
                      <font>
                         <Font name="Source Sans Pro" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="displayPostOrderBtn" layoutX="470.0" layoutY="940.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="214.0" style="-fx-background-color: #2C64B6;" text="Display" textFill="WHITE">
+                  <Button fx:id="displayPostOrderBtn" layoutX="470.0" layoutY="940.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="214.0" style="-fx-background-color: #2C64B6;" text="%button.display" textFill="WHITE">
                      <font>
                         <Font name="Source Sans Pro" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="displayInOrderBtn" layoutX="244.0" layoutY="940.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="214.0" style="-fx-background-color: #2C64B6;" text="Display" textFill="WHITE">
+                  <Button fx:id="displayInOrderBtn" layoutX="244.0" layoutY="940.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="214.0" style="-fx-background-color: #2C64B6;" text="%button.display" textFill="WHITE">
                      <font>
                         <Font name="Source Sans Pro" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="displayPreOrderBtn" layoutX="21.0" layoutY="940.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="213.0" style="-fx-background-color: #2C64B6;" text="Display" textFill="WHITE">
+                  <Button fx:id="displayPreOrderBtn" layoutX="21.0" layoutY="940.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="213.0" style="-fx-background-color: #2C64B6;" text="%button.display" textFill="WHITE">
                      <font>
                         <Font name="Source Sans Pro" size="18.0" />
                      </font>
                   </Button>
                   <Pane layoutX="20.0" layoutY="899.0" prefHeight="34.0" prefWidth="214.0" style="-fx-background-color: #00569C;">
                      <children>
-                        <Label alignment="CENTER" layoutX="-6.0" layoutY="-8.0" prefHeight="49.0" prefWidth="227.0" text="Pre - Order" textFill="WHITE">
+                        <Label alignment="CENTER" layoutX="-6.0" layoutY="-8.0" prefHeight="49.0" prefWidth="227.0" text="%button.pre_order" textFill="WHITE">
                            <font>
                               <Font name="Source Sans Pro" size="18.0" />
                            </font>
@@ -244,7 +244,7 @@
                   </Pane>
                   <Pane layoutX="244.0" layoutY="899.0" prefHeight="34.0" prefWidth="214.0" style="-fx-background-color: #00569C;">
                      <children>
-                        <Label alignment="CENTER" prefHeight="34.0" prefWidth="214.0" text="In - Order" textFill="WHITE">
+                        <Label alignment="CENTER" prefHeight="34.0" prefWidth="214.0" text="%button.in_order" textFill="WHITE">
                            <font>
                               <Font name="Source Sans Pro" size="18.0" />
                            </font>
@@ -252,7 +252,7 @@
                      </children>
                   </Pane>
                   <Pane layoutX="470.0" layoutY="899.0" prefHeight="34.0" prefWidth="214.0" style="-fx-background-color: #00569C;" />
-                  <Label alignment="CENTER" layoutX="470.0" layoutY="899.0" prefHeight="34.0" prefWidth="214.0" text="Post - Order">
+                  <Label alignment="CENTER" layoutX="470.0" layoutY="899.0" prefHeight="34.0" prefWidth="214.0" text="%button.post_order">
                      <font>
                         <Font name="Source Sans Pro" size="18.0" />
                      </font>
