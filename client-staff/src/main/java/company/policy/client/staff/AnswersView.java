@@ -77,6 +77,10 @@ public class AnswersView {
             nameTextField.selectAll();
         });
         
+        answerTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            setSubmitButtonDisable(newValue);
+        });
+        
         setSubmitButtonDisable(answerTextField.getText());
     }
 
