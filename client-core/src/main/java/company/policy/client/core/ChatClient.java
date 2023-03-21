@@ -4,6 +4,6 @@ public interface ChatClient {
 
     void stop();
 
-    void handle(String msg);
+    void handle(Object object);
 
 }
