@@ -17,7 +17,7 @@ public class BinaryTreePrinter {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append(node.value.getPolicyQuestionNumber());
+        sb.append(node.value.getQuestionNumber());
 
         String pointerRight = "└──";
         String pointerLeft = (node.right != null) ? "├──" : "└──";
@@ -36,7 +36,7 @@ public class BinaryTreePrinter {
             sb.append(System.lineSeparator());
             sb.append(padding);
             sb.append(pointer);
-            sb.append(node.value.getPolicyQuestionNumber());
+            sb.append(node.value.getQuestionNumber());
 
             StringBuilder paddingBuilder = new StringBuilder(padding);
             if (hasRightSibling) {
