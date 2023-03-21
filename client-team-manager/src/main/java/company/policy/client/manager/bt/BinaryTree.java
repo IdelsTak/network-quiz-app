@@ -21,9 +21,9 @@ public class BinaryTree {
             return new Node(value);
         }
 
-        if (value.getPolicyQuestionNumber() < current.value.getPolicyQuestionNumber()) {
+        if (value.getQuestionNumber() < current.value.getQuestionNumber()) {
             current.left = addRecursive(current.left, value);
-        } else if (value.getPolicyQuestionNumber() > current.value.getPolicyQuestionNumber()) {
+        } else if (value.getQuestionNumber() > current.value.getQuestionNumber()) {
             current.right = addRecursive(current.right, value);
         }
 
@@ -51,11 +51,11 @@ public class BinaryTree {
             return false;
         }
 
-        if (value.getPolicyQuestionNumber() == current.value.getPolicyQuestionNumber()) {
+        if (value.getQuestionNumber() == current.value.getQuestionNumber()) {
             return true;
         }
 
-        return value.getPolicyQuestionNumber() < current.value.getPolicyQuestionNumber()
+        return value.getQuestionNumber() < current.value.getQuestionNumber()
                 ? containsNodeRecursive(current.left, value)
                 : containsNodeRecursive(current.right, value);
     }
@@ -69,7 +69,7 @@ public class BinaryTree {
             return null;
         }
 
-        if (value.getPolicyQuestionNumber() == current.value.getPolicyQuestionNumber()) {
+        if (value.getQuestionNumber() == current.value.getQuestionNumber()) {
             // Case 1: no children
             if (current.left == null && current.right == null) {
                 return null;
@@ -86,11 +86,25 @@ public class BinaryTree {
 
             // Case 3: 2 children
             PolicyQuestionModel smallestValue = findSmallestValue(current.right);
-            current.value.setPolicyQuestionNumber(smallestValue.getPolicyQuestionNumber());
+//            current.value = new PolicyQuestionModel(smallestValue.getQuestionNumber());
+            current.value = new PolicyQuestionModel(
+                    smallestValue.getStaffName(), 
+                    smallestValue.getQuestionNumber(), 
+                    smallestValue.getTopic(), 
+                    smallestValue.getSubTopic(), 
+                    smallestValue.getQuestion(), 
+                    smallestValue.getOptionA(), 
+                    smallestValue.getOptionB(), 
+                    smallestValue.getOptionC(), 
+                    smallestValue.getOptionD(), 
+                    smallestValue.getOptionE(), 
+                    smallestValue.getCorrectAnswer(), 
+                    smallestValue.getGivenAnswer(), 
+                    smallestValue.getAttempt());
             current.right = deleteRecursive(current.right, smallestValue);
             return current;
         }
-        if (value.getPolicyQuestionNumber() < current.value.getPolicyQuestionNumber()) {
+        if (value.getQuestionNumber() < current.value.getQuestionNumber()) {
             current.left = deleteRecursive(current.left, value);
             return current;
         }
@@ -230,7 +244,7 @@ public class BinaryTree {
     }
 
     private void visit(PolicyQuestionModel value) {
-        // System.out.print(" " + String.format("%d - %s (%s)", value.getPolicyQuestionNumber(), value.getPolicyTopic(), value.getPolicySubTopic()));
+        // System.out.print(" " + String.format("%d - %s (%s)", value.getQuestionNumber(), value.getTopic(), value.getSubTopic()));
     }
 
     @Override
