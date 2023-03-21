@@ -190,7 +190,7 @@ public class QuestionsView {
     }
 
     void setConnectedStatus(Socket socket) {
-        connectionStatusLabel.setText("Connected to: " + socket.toString());
+        Platform.runLater(() -> connectionStatusLabel.setText("Connected to: " + socket.toString()));
     }
 
 }
