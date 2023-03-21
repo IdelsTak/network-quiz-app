@@ -10,8 +10,6 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -48,6 +46,8 @@ public class QuestionsApplication extends Application {
         new Thread(() -> {
             while (true) {
                 try (Socket socket = new Socket("localhost", 8080); ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+                    questionsView.setConnectedStatus(socket);
+                    
                     Object readObject = in.readObject();
 
                     LOG.log(Level.INFO, "Received: {0}", readObject);
