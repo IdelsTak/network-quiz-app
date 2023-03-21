@@ -94,11 +94,11 @@ public class DoublyLinkedList {
         PolicyQuestionModel pqm = curr.getElement();
 
         return String.format("Qn %d - %s (%s) - %d from %d responses correct",
-                pqm.getPolicyQuestionNumber(),
-                pqm.getPolicyTopic(),
-                pqm.getPolicySubTopic(),
-                pqm.getAnsweredCorrectCount(),
-                pqm.getAttemptedCount());
+                pqm.getQuestionNumber(),
+                pqm.getTopic(),
+                pqm.getSubTopic(),
+                pqm.getAttempt().getAttempted(),
+                pqm.getAttempt().getCorrect());
     }
 
     public PolicyQuestionModel deleteEndNode() {
