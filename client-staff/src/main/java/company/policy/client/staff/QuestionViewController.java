@@ -3,14 +3,11 @@ package company.policy.client.staff;
 import company.policy.client.core.ChatClient;
 import company.policy.client.core.ChatClientThread;
 import company.policy.client.core.PolicyQuestionModel;
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,7 +21,7 @@ public class QuestionViewController implements ChatClient {
     private final String serverName = "localhost";
     private final int serverPort = 4444;
     private Socket socket;
-    private DataOutputStream streamOut;
+    private ObjectOutputStream streamOut;
     private ChatClientThread client;
     private PolicyQuestionModel model;
     @FXML
@@ -104,54 +101,107 @@ public class QuestionViewController implements ChatClient {
     }
 
     @Override
-    public void handle(String msg) {
+    public void handle(Object object) {
         if (Platform.isFxApplicationThread()) {
-            doHandle(msg);
+            doHandle(object);
         } else {
-            Platform.runLater(() -> doHandle(msg));
+            Platform.runLater(() -> doHandle(object));
         }
     }
 
-    private void doHandle(String msg) {
-        if (msg.equals(".bye")) {
+    private void doHandle(Object object) {
+        System.out.printf("company.policy.client.staff.QuestionViewController.doHandle(); handling: %s\n", object);
+        
+        if (object instanceof String && ((String) object).equals(".bye")) {
             println("Good bye. Press EXIT button to exit ...");
             stop();
         } else {
-            msg = msg.substring(msg.indexOf(":") + 1, msg.length());
+//            object = object.substring(object.indexOf(":") + 1, object.length());
 
             try {
                 txtWord1.setText("");
                 txtWord11.setText("");
-                
-                model = PolicyQuestionModel.valueOf(msg);
 
-                model.staffNameProperty().bind(txtWord11.textProperty());
-                txtTopic.textProperty().bind(model.policyTopicProperty());
-                txtQuestionText.textProperty().bind(model.policyQuestionTextProperty());
-                txtAnswerA.textProperty().bind(model.answerOptionAProperty());
-                txtAnswerB.textProperty().bind(model.answerOptionBProperty());
-                txtAnswerC.textProperty().bind(model.answerOptionCProperty());
-                txtAnswerD.textProperty().bind(model.answerOptionDProperty());
-                txtAnswerE.textProperty().bind(model.answerOptionEProperty());
+//                model = PolicyQuestionModel.valueOf(object);s
+                model = (PolicyQuestionModel) object;
 
+                txtWord11.textProperty().addListener((observable, oldValue, newValue) -> {
+                    model = new PolicyQuestionModel(
+                            newValue,
+                            model.getQuestionNumber(),
+                            model.getTopic(),
+                            model.getSubTopic(),
+                            model.getQuestion(),
+                            model.getOptionA(),
+                            model.getOptionB(),
+                            model.getOptionC(),
+                            model.getOptionD(),
+                            model.getOptionE(),
+                            model.getCorrectAnswer(),
+                            model.getGivenAnswer(),
+                            model.getAttempt());
+                });
 
-                model.givenAnswerProperty().bind(
-                        Bindings.createIntegerBinding(
-                                () -> {
-                                    int answer = 0;
+                txtTopic.setText(model.getTopic());
+                txtQuestionText.setText(model.getQuestion());
+                txtAnswerA.setText(model.getOptionA());
+                txtAnswerB.setText(model.getOptionB());
+                txtAnswerC.setText(model.getOptionC());
+                txtAnswerD.setText(model.getOptionD());
+                txtAnswerE.setText(model.getOptionE());
 
-                                    try {
-                                        answer = Integer.parseInt(txtWord1.getText());
-                                        //println("");
-                                    } catch (NumberFormatException ex) {
-                                        //println("Couldn't set the selected answer");
-                                    }
+                txtWord1.textProperty().addListener((observable, oldValue, newValue) -> {
+                    int givenAnswer = 0;
 
-                                    return (answer > 0 && answer < 6) ? answer : 0;
-                                },
-                                txtWord1.textProperty())
-                );
+                    try {
+                        givenAnswer = Integer.parseInt(txtWord1.getText());
+                        //println("");
+                    } catch (NumberFormatException ex) {
+                        //println("Couldn't set the selected answer");
+                    }
 
+                    givenAnswer = (givenAnswer > 0 && givenAnswer < 6) ? givenAnswer : 0;
+
+                    model = new PolicyQuestionModel(
+                            model.getStaffName(),
+                            model.getQuestionNumber(),
+                            model.getTopic(),
+                            model.getSubTopic(),
+                            model.getQuestion(),
+                            model.getOptionA(),
+                            model.getOptionB(),
+                            model.getOptionC(),
+                            model.getOptionD(),
+                            model.getOptionE(),
+                            model.getCorrectAnswer(),
+                            givenAnswer,
+                            model.getAttempt());
+                });
+
+//                model.staffNameProperty().bind(txtWord11.textProperty());
+//                txtTopic.textProperty().bind(model.policyTopicProperty());
+//                txtQuestionText.textProperty().bind(model.policyQuestionTextProperty());
+//                txtAnswerA.textProperty().bind(model.answerOptionAProperty());
+//                txtAnswerB.textProperty().bind(model.answerOptionBProperty());
+//                txtAnswerC.textProperty().bind(model.answerOptionCProperty());
+//                txtAnswerD.textProperty().bind(model.answerOptionDProperty());
+//                txtAnswerE.textProperty().bind(model.answerOptionEProperty());
+//                model.givenAnswerProperty().bind(
+//                        Bindings.createIntegerBinding(
+//                                () -> {
+//                                    int answer = 0;
+//
+//                                    try {
+//                                        answer = Integer.parseInt(txtWord1.getText());
+//                                        //println("");
+//                                    } catch (NumberFormatException ex) {
+//                                        //println("Couldn't set the selected answer");
+//                                    }
+//
+//                                    return (answer > 0 && answer < 6) ? answer : 0;
+//                                },
+//                                txtWord1.textProperty())
+//                );
             } catch (Exception ex) {
                 println(ex.getMessage());
             }
@@ -174,7 +224,8 @@ public class QuestionViewController implements ChatClient {
             answer = (answer > 0 && answer < 6) ? answer : 0;
 
             if (model != null && answer != 0 && txtWord11.getText() != null && !txtWord11.getText().trim().isEmpty()) {
-                send(model.toString());
+//                send(model.toString());
+                send(model);
             }
 
             ev.consume();
@@ -213,16 +264,17 @@ public class QuestionViewController implements ChatClient {
 
     private void open() {
         try {
-            streamOut = new DataOutputStream(socket.getOutputStream());
+            streamOut = new ObjectOutputStream(socket.getOutputStream());
             client = new ChatClientThread(this, socket);
         } catch (IOException ioe) {
             println("Error opening output stream: " + ioe);
         }
     }
 
-    private void send(String answer) {
+    private void send(PolicyQuestionModel answer) {
         try {
-            streamOut.writeUTF(answer);
+//            streamOut.writeUTF(answer);
+            streamOut.writeObject(answer);
             streamOut.flush();
         } catch (IOException ioe) {
             println("Sending error: " + ioe.getMessage());
