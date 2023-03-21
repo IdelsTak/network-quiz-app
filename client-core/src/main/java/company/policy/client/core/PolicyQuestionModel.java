@@ -1,29 +1,26 @@
 package company.policy.client.core;
 
+import java.io.Serializable;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Objects;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
-public class PolicyQuestionModel implements Comparable<PolicyQuestionModel> {
+public class PolicyQuestionModel implements Serializable, Comparable<PolicyQuestionModel> {
 
-    private StringProperty staffNameProp;
-    private IntegerProperty policyQuestionNumberProp;
-    private StringProperty policyTopicProp;
-    private StringProperty policySubTopicProp;
-    private StringProperty policyQuestionTextProp;
-    private StringProperty answerOptionAProp;
-    private StringProperty answerOptionBProp;
-    private StringProperty answerOptionCProp;
-    private StringProperty answerOptionDProp;
-    private StringProperty answerOptionEProp;
-    private IntegerProperty correctAnswerProp;
-    private IntegerProperty givenAnswerProp;
+    private static final long serialVersionUID = 1L;
+
+    private final String staffName;
+    private final int questionNumber;
+    private final String topic;
+    private final String subTopic;
+    private final String question;
+    private final String optionA;
+    private final String optionB;
+    private final String optionC;
+    private final String optionD;
+    private final String optionE;
+    private final int correctAnswer;
+    private final int givenAnswer;
+    private final Attempt attempt;
 
     public PolicyQuestionModel() {
         this(0, "", "");
@@ -34,214 +31,124 @@ public class PolicyQuestionModel implements Comparable<PolicyQuestionModel> {
     }
 
     public PolicyQuestionModel(
-            int policyQuestionNumber,
-            String policyTopic,
-            String policySubTopic,
-            String policyQuestionText,
-            String answerOptionA,
-            String answerOptionB,
-            String answerOptionC,
-            String answerOptionD,
-            String answerOptionE,
+            int questionNumber,
+            String topic,
+            String subTopic,
+            String question,
+            String optionA,
+            String optionB,
+            String optionC,
+            String optionD,
+            String optionE,
             int correctAnswer) {
-        staffNameProp = new SimpleStringProperty("");
-        policyQuestionNumberProp = new SimpleIntegerProperty(policyQuestionNumber);
-        policyTopicProp = new SimpleStringProperty(policyTopic);
-        policySubTopicProp = new SimpleStringProperty(policySubTopic);
-        policyQuestionTextProp = new SimpleStringProperty(policyQuestionText);
-        answerOptionAProp = new SimpleStringProperty(answerOptionA);
-        answerOptionBProp = new SimpleStringProperty(answerOptionB);
-        answerOptionCProp = new SimpleStringProperty(answerOptionC);
-        answerOptionDProp = new SimpleStringProperty(answerOptionD);
-        answerOptionEProp = new SimpleStringProperty(answerOptionE);
-        correctAnswerProp = new SimpleIntegerProperty(correctAnswer);
-        givenAnswerProp = new SimpleIntegerProperty();
+        this("Unknown", questionNumber, topic, subTopic, question, optionA, optionB, optionC, optionD, optionE, correctAnswer, -1, new Attempt(0, 0));
+    }
+
+    public PolicyQuestionModel(
+            String staffName,
+            int questionNumber,
+            String topic,
+            String subTopic,
+            String question,
+            String optionA,
+            String optionB,
+            String optionC,
+            String optionD,
+            String optionE,
+            int correctAnswer,
+            int givenAnswer,
+            Attempt attempt) {
+        this.staffName = staffName;
+        this.questionNumber = questionNumber;
+        this.topic = topic;
+        this.subTopic = subTopic;
+        this.question = question;
+        this.optionA = optionA;
+        this.optionB = optionB;
+        this.optionC = optionC;
+        this.optionD = optionD;
+        this.optionE = optionE;
+        this.correctAnswer = correctAnswer;
+        this.givenAnswer = givenAnswer;
+        this.attempt = attempt;
     }
 
     public String getStaffName() {
-        return staffNameProp.get();
+        return staffName;
     }
 
-    public void setStaffName(String staffName) {
-        this.staffNameProp.set(staffName);
+    public int getQuestionNumber() {
+        return questionNumber;
     }
 
-    public StringProperty staffNameProperty() {
-        return staffNameProp;
+    public String getTopic() {
+        return topic;
     }
 
-    public int getPolicyQuestionNumber() {
-        return policyQuestionNumberProp.get();
+    public String getSubTopic() {
+        return subTopic;
     }
 
-    public void setPolicyQuestionNumber(int policyQuestionNumber) {
-        this.policyQuestionNumberProp.set(policyQuestionNumber);
+    public String getQuestion() {
+        return question;
     }
 
-    public IntegerProperty policyQuestionNumberProperty() {
-        return policyQuestionNumberProp;
+    public String getOptionA() {
+        return optionA;
     }
 
-    public String getPolicyTopic() {
-        return policyTopicProp.get();
+    public String getOptionB() {
+        return optionB;
     }
 
-    public void setPolicyTopic(String policyTopic) {
-        this.policyTopicProp.set(policyTopic);
+    public String getOptionC() {
+        return optionC;
     }
 
-    public StringProperty policyTopicProperty() {
-        return policyTopicProp;
+    public String getOptionD() {
+        return optionD;
     }
 
-    public String getPolicySubTopic() {
-        return policySubTopicProp.get();
-    }
-
-    public void setPolicySubTopic(String policySubTopic) {
-        this.policySubTopicProp.set(policySubTopic);
-    }
-
-    public StringProperty policySubTopicProperty() {
-        return policySubTopicProp;
-    }
-
-    public String getPolicyQuestionText() {
-        return policyQuestionTextProp.get();
-    }
-
-    public void setPolicyQuestionText(String policyQuestionText) {
-        this.policyQuestionTextProp.set(policyQuestionText);
-    }
-
-    public StringProperty policyQuestionTextProperty() {
-        return policyQuestionTextProp;
-    }
-
-    public String getAnswerOptionA() {
-        return answerOptionAProp.get();
-    }
-
-    public void setAnswerOptionA(String answerOptionA) {
-        this.answerOptionAProp.set(answerOptionA);
-    }
-
-    public StringProperty answerOptionAProperty() {
-        return answerOptionAProp;
-    }
-
-    public String getAnswerOptionB() {
-        return answerOptionBProp.get();
-    }
-
-    public void setAnswerOptionB(String answerOptionB) {
-        this.answerOptionBProp.set(answerOptionB);
-    }
-
-    public StringProperty answerOptionBProperty() {
-        return answerOptionBProp;
-    }
-
-    public String getAnswerOptionC() {
-        return answerOptionCProp.get();
-    }
-
-    public void setAnswerOptionC(String answerOptionC) {
-        this.answerOptionCProp.set(answerOptionC);
-    }
-
-    public StringProperty answerOptionCProperty() {
-        return answerOptionCProp;
-    }
-
-    public String getAnswerOptionD() {
-        return answerOptionDProp.get();
-    }
-
-    public void setAnswerOptionD(String answerOptionD) {
-        this.answerOptionDProp.set(answerOptionD);
-    }
-
-    public StringProperty answerOptionDProperty() {
-        return answerOptionDProp;
-    }
-
-    public String getAnswerOptionE() {
-        return answerOptionEProp.get();
-    }
-
-    public void setAnswerOptionE(String answerOptionE) {
-        this.answerOptionEProp.set(answerOptionE);
-    }
-
-    public StringProperty answerOptionEProperty() {
-        return answerOptionEProp;
+    public String getOptionE() {
+        return optionE;
     }
 
     public int getCorrectAnswer() {
-        return correctAnswerProp.get();
-    }
-
-    public void setCorrectAnswer(int correctAnswer) {
-        this.correctAnswerProp.set(correctAnswer);
-    }
-
-    public IntegerProperty correctAnswerProperty() {
-        return correctAnswerProp;
+        return correctAnswer;
     }
 
     public int getGivenAnswer() {
-        return givenAnswerProp.get();
+        return givenAnswer;
     }
 
-    public void setGivenAnswer(int givenAnswer) {
-        givenAnswerProp.set(givenAnswer);
-    }
-
-    public IntegerProperty givenAnswerProperty() {
-        return givenAnswerProp;
-    }
-
-    private int attemptedCount;
-
-    public int getAttemptedCount() {
-        return attemptedCount;
-    }
-
-    public void setAttemptedCount(int attemptedCount) {
-        this.attemptedCount = attemptedCount;
-    }
-
-    private int answeredCorrectCount;
-
-    public int getAnsweredCorrectCount() {
-        return answeredCorrectCount;
-    }
-
-    public void setAnsweredCorrectCount(int answeredCorrectCount) {
-        this.answeredCorrectCount = answeredCorrectCount;
+    public Attempt getAttempt() {
+        return attempt;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.staffNameProp.get());
-        hash = 59 * hash + Objects.hashCode(this.policyQuestionNumberProp.get());
-        hash = 59 * hash + Objects.hashCode(this.policyTopicProp.get());
-        hash = 59 * hash + Objects.hashCode(this.policySubTopicProp.get());
-        hash = 59 * hash + Objects.hashCode(this.policyQuestionTextProp.get());
-        hash = 59 * hash + Objects.hashCode(this.answerOptionAProp.get());
-        hash = 59 * hash + Objects.hashCode(this.answerOptionBProp.get());
-        hash = 59 * hash + Objects.hashCode(this.answerOptionCProp.get());
-        hash = 59 * hash + Objects.hashCode(this.answerOptionDProp.get());
-        hash = 59 * hash + Objects.hashCode(this.answerOptionEProp.get());
-        hash = 59 * hash + Objects.hashCode(this.correctAnswerProp.get());
-        hash = 59 * hash + Objects.hashCode(this.givenAnswerProp.get());
+        hash = 71 * hash + Objects.hashCode(this.staffName);
+        hash = 71 * hash + this.questionNumber;
+        hash = 71 * hash + Objects.hashCode(this.topic);
+        hash = 71 * hash + Objects.hashCode(this.subTopic);
+        hash = 71 * hash + Objects.hashCode(this.question);
+        hash = 71 * hash + Objects.hashCode(this.optionA);
+        hash = 71 * hash + Objects.hashCode(this.optionB);
+        hash = 71 * hash + Objects.hashCode(this.optionC);
+        hash = 71 * hash + Objects.hashCode(this.optionD);
+        hash = 71 * hash + Objects.hashCode(this.optionE);
+        hash = 71 * hash + this.correctAnswer;
+        hash = 71 * hash + this.givenAnswer;
+        hash = 71 * hash + Objects.hashCode(this.attempt);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }
@@ -249,104 +156,134 @@ public class PolicyQuestionModel implements Comparable<PolicyQuestionModel> {
             return false;
         }
         final PolicyQuestionModel other = (PolicyQuestionModel) obj;
-        if (!Objects.equals(this.staffNameProp.get(), other.staffNameProp.get())) {
+        if (this.questionNumber != other.questionNumber) {
             return false;
         }
-        if (!Objects.equals(this.policyQuestionNumberProp.get(), other.policyQuestionNumberProp.get())) {
+        if (this.correctAnswer != other.correctAnswer) {
             return false;
         }
-        if (!Objects.equals(this.policyTopicProp.get(), other.policyTopicProp.get())) {
+        if (this.givenAnswer != other.givenAnswer) {
             return false;
         }
-        if (!Objects.equals(this.policySubTopicProp.get(), other.policySubTopicProp.get())) {
+        if (!Objects.equals(this.staffName, other.staffName)) {
             return false;
         }
-        if (!Objects.equals(this.policyQuestionTextProp.get(), other.policyQuestionTextProp.get())) {
+        if (!Objects.equals(this.topic, other.topic)) {
             return false;
         }
-        if (!Objects.equals(this.answerOptionAProp.get(), other.answerOptionAProp.get())) {
+        if (!Objects.equals(this.subTopic, other.subTopic)) {
             return false;
         }
-        if (!Objects.equals(this.answerOptionBProp.get(), other.answerOptionBProp.get())) {
+        if (!Objects.equals(this.question, other.question)) {
             return false;
         }
-        if (!Objects.equals(this.answerOptionCProp.get(), other.answerOptionCProp.get())) {
+        if (!Objects.equals(this.optionA, other.optionA)) {
             return false;
         }
-        if (!Objects.equals(this.answerOptionDProp.get(), other.answerOptionDProp.get())) {
+        if (!Objects.equals(this.optionB, other.optionB)) {
             return false;
         }
-        if (!Objects.equals(this.answerOptionEProp.get(), other.answerOptionEProp.get())) {
+        if (!Objects.equals(this.optionC, other.optionC)) {
             return false;
         }
-        if (!Objects.equals(this.correctAnswerProp.get(), other.correctAnswerProp.get())) {
+        if (!Objects.equals(this.optionD, other.optionD)) {
             return false;
         }
-        return Objects.equals(this.givenAnswerProp.get(), other.givenAnswerProp.get());
-    }
-
-    @Override
-    public int compareTo(PolicyQuestionModel that) {
-        return Comparator.comparing(PolicyQuestionModel::getPolicyQuestionNumber).compare(this, that);
+        if (!Objects.equals(this.optionE, other.optionE)) {
+            return false;
+        }
+        return Objects.equals(this.attempt, other.attempt);
     }
 
     @Override
     public String toString() {
-        return new AsString().apply(this);
+        return "PolicyQuestionModel{" + "staffName=" + staffName + ", questionNumber=" + questionNumber + ", topic=" + topic + ", subTopic=" + subTopic + ", question=" + question + ", optionA=" + optionA + ", optionB=" + optionB + ", optionC=" + optionC + ", optionD=" + optionD + ", optionE=" + optionE + ", correctAnswer=" + correctAnswer + ", givenAnswer=" + givenAnswer + ", attempt=" + attempt + '}';
     }
 
-    public static PolicyQuestionModel valueOf(String val) {
-        return new AsModel().apply(val);
+//    private int attemptedCount;
+//
+//    public int getAttemptedCount() {
+//        return attemptedCount;
+//    }
+//
+//    public void setAttemptedCount(int attemptedCount) {
+//        this.attemptedCount = attemptedCount;
+//    }
+//
+//    private int answeredCorrectCount;
+//
+//    public int getAnsweredCorrectCount() {
+//        return answeredCorrectCount;
+//    }
+//
+//    public void setAnsweredCorrectCount(int answeredCorrectCount) {
+//        this.answeredCorrectCount = answeredCorrectCount;
+//    }
+    @Override
+    public int compareTo(PolicyQuestionModel that) {
+        return Comparator.comparing(PolicyQuestionModel::getQuestionNumber).compare(this, that);
     }
 
-    private static class AsString implements Function<PolicyQuestionModel, String> {
-
-        @Override
-        public String apply(PolicyQuestionModel model) {
-
-            return List.of(model.getStaffName(),
-                    Integer.toString(model.getPolicyQuestionNumber()),
-                    model.getPolicyTopic(),
-                    model.getPolicySubTopic(),
-                    model.getPolicyQuestionText(),
-                    model.getAnswerOptionA(),
-                    model.getAnswerOptionB(),
-                    model.getAnswerOptionC(),
-                    model.getAnswerOptionD(),
-                    model.getAnswerOptionE(),
-                    Integer.toString(model.getCorrectAnswer()),
-                    Integer.toString(model.getGivenAnswer()))
-                    .stream()
-                    .collect(Collectors.joining(System.lineSeparator()));
-        }
-
-    }
-
-    private static class AsModel implements Function<String, PolicyQuestionModel> {
-
-        @Override
-        public PolicyQuestionModel apply(String s) {
-            PolicyQuestionModel model = new PolicyQuestionModel();
-            String[] fields = s.split(System.lineSeparator());
-
-            if (fields.length == 12) {
-                model.setStaffName(fields[0]);
-                model.setPolicyQuestionNumber(Integer.parseInt(fields[1]));
-                model.setPolicyTopic(fields[2]);
-                model.setPolicySubTopic(fields[3]);
-                model.setPolicyQuestionText(fields[4]);
-                model.setAnswerOptionA(fields[5]);
-                model.setAnswerOptionB(fields[6]);
-                model.setAnswerOptionC(fields[7]);
-                model.setAnswerOptionD(fields[8]);
-                model.setAnswerOptionE(fields[9]);
-                model.setCorrectAnswer(Integer.parseInt(fields[10]));
-                model.setGivenAnswer(Integer.parseInt(fields[11]));
-            }
-
-            return model;
-        }
-
-    }
-
+//    @Override
+//    public String toString() {
+//        return new AsString().apply(this);
+//    }
+//
+//    public static PolicyQuestionModel valueOf(String val) {
+//        return new AsModel().apply(val);
+//    }
+//
+//    private static class AsString implements Function<PolicyQuestionModel, String> {
+//
+//        @Override
+//        public String apply(PolicyQuestionModel model) {
+//
+//            String asString = List.of(model.getStaffName(),
+//                    Integer.toString(model.getPolicyQuestionNumber()),
+//                    model.getPolicyTopic(),
+//                    model.getPolicySubTopic(),
+//                    model.getPolicyQuestionText(),
+//                    model.getAnswerOptionA(),
+//                    model.getAnswerOptionB(),
+//                    model.getAnswerOptionC(),
+//                    model.getAnswerOptionD(),
+//                    model.getAnswerOptionE(),
+//                    Integer.toString(model.getCorrectAnswer()),
+//                    Integer.toString(model.getGivenAnswer()))
+//                    .stream()
+//                    .collect(Collectors.joining(System.lineSeparator()));
+//
+//            System.out.printf("company.policy.client.core.PolicyQuestionModel.AsString.apply(); asString = %s\n", asString);
+//
+//            return asString;
+//        }
+//
+//    }
+//
+//    private static class AsModel implements Function<String, PolicyQuestionModel> {
+//
+//        @Override
+//        public PolicyQuestionModel apply(String s) {
+//            PolicyQuestionModel model = new PolicyQuestionModel();
+//            String[] fields = s.split(System.lineSeparator());
+//
+//            if (fields.length == 12) {
+//                model.setStaffName(fields[0]);
+//                model.setPolicyQuestionNumber(Integer.parseInt(fields[1]));
+//                model.setPolicyTopic(fields[2]);
+//                model.setPolicySubTopic(fields[3]);
+//                model.setPolicyQuestionText(fields[4]);
+//                model.setAnswerOptionA(fields[5]);
+//                model.setAnswerOptionB(fields[6]);
+//                model.setAnswerOptionC(fields[7]);
+//                model.setAnswerOptionD(fields[8]);
+//                model.setAnswerOptionE(fields[9]);
+//                model.setCorrectAnswer(Integer.parseInt(fields[10]));
+//                model.setGivenAnswer(Integer.parseInt(fields[11]));
+//            }
+//
+//            return model;
+//        }
+//
+//    }
 }
