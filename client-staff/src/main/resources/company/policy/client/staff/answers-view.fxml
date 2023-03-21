@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefWidth="800.0" spacing="12.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="connectionStatusLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="30.0" style="-fx-font-weight: bold; -fx-border-color: gray; -fx-background-color: white;" text="&lt;Not Connected to Server&gt;" />
+      <VBox>
+         <children>
+            <Label style="-fx-font-weight: bold;" text="Staff Name" />
+            <TextField fx:id="nameTextField" />
+         </children>
+         <padding>
+            <Insets bottom="24.0" />
+         </padding>
+      </VBox>
+      <VBox>
+         <children>
+            <VBox>
+               <children>
+                  <Label style="-fx-font-weight: bold;" text="Topic" />
+                  <TextField fx:id="topicTextField" editable="false" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label style="-fx-font-weight: bold;" text="Question" />
+                  <TextField fx:id="questionTextField" editable="false" />
+               </children>
+               <padding>
+                  <Insets bottom="24.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
+      <VBox>
+         <children>
+            <VBox>
+               <children>
+                  <Label style="-fx-font-weight: bold;" text="Option 1" />
+                  <TextField fx:id="option1TextField" editable="false" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label style="-fx-font-weight: bold;" text="Option 2" />
+                  <TextField fx:id="option2TextField" editable="false" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label style="-fx-font-weight: bold;" text="Option 3" />
+                  <TextField fx:id="option3TextField" editable="false" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label style="-fx-font-weight: bold;" text="Option 4" />
+                  <TextField fx:id="option4TextField" editable="false" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label style="-fx-font-weight: bold;" text="Option 5" />
+                  <TextField fx:id="option5TextField" editable="false" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <VBox>
+         <children>
+            <Label style="-fx-font-weight: bold;" text="Answer" />
+            <HBox spacing="12.0">
+               <children>
+                  <TextField fx:id="answerTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+                  <Button fx:id="submitButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Submit" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets top="12.0" />
+         </padding>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+   </padding>
+</VBox>
