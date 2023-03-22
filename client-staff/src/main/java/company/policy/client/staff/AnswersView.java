@@ -67,6 +67,7 @@ public class AnswersView {
                 option3TextField.setText(newValue.getOptionC());
                 option4TextField.setText(newValue.getOptionD());
                 option5TextField.setText(newValue.getOptionE());
+                answerTextField.setText(null);
             }
 
             submitButton.setDisable(newValue != null);
