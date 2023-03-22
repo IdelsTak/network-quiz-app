@@ -1,6 +1,6 @@
 package company.policy.client.manager.dll;
 
-import company.policy.client.core.PolicyQuestionModel;
+import company.policy.client.core.Question;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +25,7 @@ public class DoublyLinkedList {
         return count;
     }
 
-    public void prepend(PolicyQuestionModel data) {
+    public void prepend(Question data) {
         if (root == null) {
             root = new Node(data, null, null);
         } else {
@@ -35,7 +35,7 @@ public class DoublyLinkedList {
         }
     }
 
-    public void indexInsertion(PolicyQuestionModel data, int index) {
+    public void indexInsertion(Question data, int index) {
         if (index == 0) {
             this.prepend(data);
         } else if (index == size()) {
@@ -50,7 +50,7 @@ public class DoublyLinkedList {
         }
     }
 
-    public void append(PolicyQuestionModel data) {
+    public void append(Question data) {
         if (root == null) {
             root = new Node(data, null, null);
         } else {
@@ -64,16 +64,16 @@ public class DoublyLinkedList {
         }
     }
 
-    public PolicyQuestionModel[] getAll() {
+    public Question[] getAll() {
         Node curr = root;
-        List<PolicyQuestionModel> vals = new ArrayList<>();
+        List<Question> vals = new ArrayList<>();
 
         while (curr != null) {
             vals.add(curr.getElement());
             curr = curr.next;
         }
 
-        return vals.toArray(PolicyQuestionModel[]::new);
+        return vals.toArray(Question[]::new);
     }
 
     @Override
@@ -91,17 +91,17 @@ public class DoublyLinkedList {
     }
 
     private static String policyInfo(Node curr) {
-        PolicyQuestionModel pqm = curr.getElement();
+        Question pqm = curr.getElement();
 
         return String.format("Qn %d - %s (%s) - %d from %d responses correct",
-                pqm.getQuestionNumber(),
+                pqm.getNumber(),
                 pqm.getTopic(),
                 pqm.getSubTopic(),
                 pqm.getAttempt().getAttempted(),
                 pqm.getAttempt().getCorrect());
     }
 
-    public PolicyQuestionModel deleteEndNode() {
+    public Question deleteEndNode() {
         Node curr = root;
         for (; curr.next != null; curr = curr.next);
         if (curr != null) {
@@ -109,7 +109,7 @@ public class DoublyLinkedList {
                 return this.deleteBeginNode();
             }
 
-            PolicyQuestionModel el = curr.getElement();
+            Question el = curr.getElement();
             curr.prev.next = null;
             curr = null;
             return el;
@@ -117,9 +117,9 @@ public class DoublyLinkedList {
         return null;
     }
 
-    public PolicyQuestionModel deleteBeginNode() {
+    public Question deleteBeginNode() {
         if (root != null) {
-            PolicyQuestionModel el = root.getElement();
+            Question el = root.getElement();
 
             if (root.next != null) {
                 root = root.next;
@@ -132,7 +132,7 @@ public class DoublyLinkedList {
         return null;
     }
 
-    public PolicyQuestionModel deleteIndexNode(int index) {
+    public Question deleteIndexNode(int index) {
         if (index == 0) {
             return this.deleteBeginNode();
         } else if (index == size()) {
@@ -141,7 +141,7 @@ public class DoublyLinkedList {
             int count = 0;
             Node curr = root;
             for (; count != index; count++, curr = curr.next);
-            PolicyQuestionModel el = curr.getElement();
+            Question el = curr.getElement();
             curr.next.prev = curr.prev;
             curr.prev.next = curr.next;
             curr = null;
