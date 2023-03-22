@@ -2,6 +2,7 @@ package company.policy.client.manager;
 
 import company.policy.client.core.Attempt;
 import company.policy.client.core.Question;
+import static company.policy.client.manager.QuestionsApplication.LOG_MESSAGES;
 import company.policy.client.manager.bt.BinaryTree;
 import company.policy.client.manager.bt.BinaryTreePrinter;
 import company.policy.client.manager.dll.DoublyLinkedList;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -39,6 +41,7 @@ import javafx.stage.Stage;
 public class QuestionsView {
 
     private static final Logger LOG = Logger.getLogger(QuestionsView.class.getName());
+    public static final ResourceBundle LOG_MESSAGES = ResourceBundle.getBundle("i18n/log_messages", Locale.ITALIAN);
     private final Parent root;
     private final ObservableList<Question> questions;
     private final Stage stage;
@@ -170,7 +173,7 @@ public class QuestionsView {
             try {
                 answer = Integer.parseInt(newValue);
             } catch (NumberFormatException ex) {
-                LOG.log(Level.WARNING, "Couldn't read answer: ", ex.getMessage());
+                LOG.log(Level.WARNING, LOG_MESSAGES.getString("log.warning.couldnt.read"), ex.getMessage());
             }
 
             sendButton.setDisable(questionsTable.getSelectionModel().getSelectedItem() == null || answer <= 0 || answer > 5);
@@ -217,16 +220,16 @@ public class QuestionsView {
                     answerTextField.selectAll();
                 });
             } catch (FileNotFoundException e) {
-                LOG.log(Level.WARNING, "File not found: {0}", selectedFile.getAbsolutePath());
+                LOG.log(Level.WARNING, LOG_MESSAGES.getString("log.warning.file.not.found"), selectedFile.getAbsolutePath());
             } catch (NumberFormatException ex) {
-                LOG.log(Level.WARNING, "Couldn't read number: {0}", ex);
+                LOG.log(Level.WARNING, LOG_MESSAGES.getString("log.warning.couldnt.read.number"), ex);
             }
         }
     }
     private final List<Question> answeredQuestions = new ArrayList<>();
 
     void handle(Question question) {
-        LOG.log(Level.INFO, "Needs to handle: {0}", question);
+        LOG.log(Level.INFO, LOG_MESSAGES.getString("log.info.needs.to.handle"), question);
 
         if (question.getGivenAnswer() <= 0) {
             return;
