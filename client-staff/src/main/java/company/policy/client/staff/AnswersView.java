@@ -21,7 +21,7 @@ import javafx.scene.control.TextField;
 public class AnswersView {
 
     private static final Logger LOG = Logger.getLogger(AnswersView.class.getName());
-    public static final ResourceBundle LOG_MESSAGES = ResourceBundle.getBundle("i18n/log_messages", Locale.ITALIAN);
+    public static final ResourceBundle LOG_MESSAGES = ResourceBundle.getBundle("i18n/log_messages", Locale.getDefault());
     private final ObjectProperty<Question> questionProperty;
     private Parent root;
     @FXML
@@ -54,7 +54,7 @@ public class AnswersView {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("answers-view.fxml"));
         fxmlLoader.setController(this);
-        fxmlLoader.setResources(ResourceBundles.ITALIAN.getResourceBundle());
+        fxmlLoader.setResources(ResourceBundles.DEFAULT.getResourceBundle());
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
