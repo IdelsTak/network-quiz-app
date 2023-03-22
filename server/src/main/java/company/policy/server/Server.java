@@ -44,7 +44,7 @@ public class Server {
                     try (ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
                         Object read = in.readObject();
 
-                        LOG.log(Level.INFO, "Read: {0}", read);
+                        LOG.log(Level.INFO, "Received object {0} from client {1}", new Object[]{read, socket});
 
                         List<Socket> sockets = map.entrySet().stream()
                                 .filter(e -> !Objects.equals(e.getKey(), id))
@@ -52,28 +52,26 @@ public class Server {
                                 .toList();
 
                         for (Socket otherSocket : sockets) {
-                            try {
-                                ObjectOutputStream out = new ObjectOutputStream(otherSocket.getOutputStream());
-                                out.writeObject(read);
-                                out.flush();
-                            } catch (IOException ex) {
-                                LOG.log(Level.SEVERE, null, ex);
-                            }
+                            ObjectOutputStream out = new ObjectOutputStream(otherSocket.getOutputStream());
+                            out.writeObject(read);
+                            out.flush();
+
+                            LOG.log(Level.INFO, "Sent object {0} to client {1}", new Object[]{read, otherSocket});
                         }
 
                         map.remove(id);
-                    } // Catch the EOFException and log a warning message
-                    // The EOFException is being thrown by the ObjectInputStream
-                    // when it tries to read an object from the input stream but
-                    // finds that the end of the stream has been reached.
-                    // This could happen if the client closes the connection 
-                    // abruptly or sends an incomplete message.
-                    catch (EOFException ex) {
+                    } catch (EOFException ex) {
+                        // The EOFException is being thrown by the ObjectInputStream
+                        // when it tries to read an object from the input stream but
+                        // finds that the end of the stream has been reached.
+                        // This could happen if the client closes the connection 
+                        // abruptly or sends an incomplete message.
+                        map.remove(id);
                         LOG.log(Level.WARNING, "Connection closed unexpectedly: {0}", socket);
-                        map.remove(id);
                     } catch (IOException | ClassNotFoundException ex) {
-                        LOG.log(Level.SEVERE, null, ex);
                         map.remove(id);
+                        // Catch any other exceptions and log an error message
+                        LOG.log(Level.SEVERE, "Error reading object from client {0}: {1}", new Object[]{socket, ex});
                     } finally {
                         try {
                             socket.close();
