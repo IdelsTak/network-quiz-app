@@ -1,6 +1,6 @@
 package company.policy.client.manager.bt;
 
-import company.policy.client.core.PolicyQuestionModel;
+import company.policy.client.core.Question;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,19 +11,19 @@ public class BinaryTree {
 
     public Node root;
 
-    public void add(PolicyQuestionModel value) {
+    public void add(Question value) {
         root = addRecursive(root, value);
     }
 
-    private Node addRecursive(Node current, PolicyQuestionModel value) {
+    private Node addRecursive(Node current, Question value) {
 
         if (current == null) {
             return new Node(value);
         }
 
-        if (value.getQuestionNumber() < current.value.getQuestionNumber()) {
+        if (value.getNumber()< current.value.getNumber()) {
             current.left = addRecursive(current.left, value);
-        } else if (value.getQuestionNumber() > current.value.getQuestionNumber()) {
+        } else if (value.getNumber() > current.value.getNumber()) {
             current.right = addRecursive(current.right, value);
         }
 
@@ -42,34 +42,34 @@ public class BinaryTree {
         return current == null ? 0 : getSizeRecursive(current.left) + 1 + getSizeRecursive(current.right);
     }
 
-    public boolean containsNode(PolicyQuestionModel value) {
+    public boolean containsNode(Question value) {
         return containsNodeRecursive(root, value);
     }
 
-    private boolean containsNodeRecursive(Node current, PolicyQuestionModel value) {
+    private boolean containsNodeRecursive(Node current, Question value) {
         if (current == null) {
             return false;
         }
 
-        if (value.getQuestionNumber() == current.value.getQuestionNumber()) {
+        if (value.getNumber() == current.value.getNumber()) {
             return true;
         }
 
-        return value.getQuestionNumber() < current.value.getQuestionNumber()
+        return value.getNumber() < current.value.getNumber()
                 ? containsNodeRecursive(current.left, value)
                 : containsNodeRecursive(current.right, value);
     }
 
-    public void delete(PolicyQuestionModel value) {
+    public void delete(Question value) {
         root = deleteRecursive(root, value);
     }
 
-    private Node deleteRecursive(Node current, PolicyQuestionModel value) {
+    private Node deleteRecursive(Node current, Question value) {
         if (current == null) {
             return null;
         }
 
-        if (value.getQuestionNumber() == current.value.getQuestionNumber()) {
+        if (value.getNumber() == current.value.getNumber()) {
             // Case 1: no children
             if (current.left == null && current.right == null) {
                 return null;
@@ -85,26 +85,13 @@ public class BinaryTree {
             }
 
             // Case 3: 2 children
-            PolicyQuestionModel smallestValue = findSmallestValue(current.right);
-//            current.value = new PolicyQuestionModel(smallestValue.getQuestionNumber());
-            current.value = new PolicyQuestionModel(
-                    smallestValue.getStaffName(), 
-                    smallestValue.getQuestionNumber(), 
-                    smallestValue.getTopic(), 
-                    smallestValue.getSubTopic(), 
-                    smallestValue.getQuestion(), 
-                    smallestValue.getOptionA(), 
-                    smallestValue.getOptionB(), 
-                    smallestValue.getOptionC(), 
-                    smallestValue.getOptionD(), 
-                    smallestValue.getOptionE(), 
-                    smallestValue.getCorrectAnswer(), 
-                    smallestValue.getGivenAnswer(), 
-                    smallestValue.getAttempt());
+            Question smallestValue = findSmallestValue(current.right);
+//            current.value = new Question(smallestValue.getNumber());
+            current.value = Question.from(smallestValue);
             current.right = deleteRecursive(current.right, smallestValue);
             return current;
         }
-        if (value.getQuestionNumber() < current.value.getQuestionNumber()) {
+        if (value.getNumber() < current.value.getNumber()) {
             current.left = deleteRecursive(current.left, value);
             return current;
         }
@@ -113,7 +100,7 @@ public class BinaryTree {
         return current;
     }
 
-    private PolicyQuestionModel findSmallestValue(Node root) {
+    private Question findSmallestValue(Node root) {
         return root.left == null ? root.value : findSmallestValue(root.left);
     }
 
@@ -165,9 +152,9 @@ public class BinaryTree {
         }
     }
     
-    private final List<PolicyQuestionModel> traversedModels = new ArrayList<>();
+    private final List<Question> traversedModels = new ArrayList<>();
 
-    public List<PolicyQuestionModel> traverseInOrderWithoutRecursion() {
+    public List<Question> traverseInOrderWithoutRecursion() {
         Stack<Node> stack = new Stack<>();
         Node current = root;
         
@@ -243,8 +230,8 @@ public class BinaryTree {
         return new ArrayList(traversedModels);
     }
 
-    private void visit(PolicyQuestionModel value) {
-        // System.out.print(" " + String.format("%d - %s (%s)", value.getQuestionNumber(), value.getTopic(), value.getSubTopic()));
+    private void visit(Question value) {
+        // System.out.print(" " + String.format("%d - %s (%s)", value.getNumber(), value.getTopic(), value.getSubTopic()));
     }
 
     @Override
