@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.Socket;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -239,29 +238,29 @@ public class QuestionsView {
         List<Question> queriesToPrint = new ArrayList<>();
 
         for (Map.Entry<Integer, Set<Question>> entry : map.entrySet()) {
-            Set<Question> value = entry.getValue();
+            Set<Question> queries = entry.getValue();
 
-            int attempted = value.size();
-            int correct = (int) value.stream().filter(m -> m.getGivenAnswer() == m.getCorrectAnswer()).count();
+            int attempted = queries.size();
+            int correct = (int) queries.stream().filter(query -> query.getGivenAnswer() == query.getCorrectAnswer()).count();
 
-            Question query = new ArrayList<>(value).get(0);
+            Question query = new ArrayList<>(queries).get(0);
             query = query.from(new Attempt(attempted, correct));
 
             queriesToPrint.add(query);
         }
 
-        DoublyLinkedList dll = new DoublyLinkedList();
+        DoublyLinkedList linkedList = new DoublyLinkedList();
         tree = new BinaryTree();
 
-        for (Question pqm : queriesToPrint) {
-            dll.append(pqm);
+        for (Question query : queriesToPrint) {
+            linkedList.append(query);
         }
 
-        for (Question pqm : dll.getAll()) {
-            tree.add(pqm);
+        for (Question query : linkedList.getAll()) {
+            tree.add(query);
         }
 
-        linkedListTextArea.setText(dll.toString());
+        linkedListTextArea.setText(linkedList.toString());
 
         if (order == null) {
             order = new InOrder(tree);
@@ -300,8 +299,6 @@ public class QuestionsView {
         @Override
         public String toString() {
             return traversedModels.stream()
-                    /*.map(value -> String.format("%d - %s (%s)", value.getPolicyQuestionNumber(), value.getPolicyTopic(), value.getPolicySubTopic()))
-                    .collect(Collectors.joining(", ", format(RB.getString("inorder_delimiter")), ""));*/
                     .map(value -> String.format("%d - %s (%s)", value.getNumber(), value.getTopic(), value.getSubTopic()))
                     .collect(Collectors.joining(", ", "IN-ORDER:  ", ""));
         }
@@ -323,8 +320,6 @@ public class QuestionsView {
         @Override
         public String toString() {
             return traversedModels.stream()
-                    /*.map(value -> String.format("%d - %s (%s)", value.getPolicyQuestionNumber(), value.getPolicyTopic(), value.getPolicySubTopic()))
-                    .collect(Collectors.joining(", ", format(RB.getString("preorder_delimiter")), ""));*/
                     .map(value -> String.format("%d - %s (%s)", value.getNumber(), value.getTopic(), value.getSubTopic()))
                     .collect(Collectors.joining(", ", "PRE-ORDER: ", ""));
         }
@@ -346,8 +341,6 @@ public class QuestionsView {
         @Override
         public String toString() {
             return traversedModels.stream()
-                    /*.map(value -> String.format("%d - %s (%s)", value.getPolicyQuestionNumber(), value.getPolicyTopic(), value.getPolicySubTopic()))
-                    .collect(Collectors.joining(", ", format(RB.getString("postorder_delimiter")), ""));*/
                     .map(value -> String.format("%d - %s (%s)", value.getNumber(), value.getTopic(), value.getSubTopic()))
                     .collect(Collectors.joining(", ", "POST-ORDER: ", ""));
         }
