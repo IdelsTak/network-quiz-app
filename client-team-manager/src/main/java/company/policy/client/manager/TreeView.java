@@ -22,7 +22,7 @@ class TreeView {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("tree-pane.fxml"));
         fxmlLoader.setController(this);
-        fxmlLoader.setResources(ResourceBundles.ITALIAN.getResourceBundle());
+        fxmlLoader.setResources(ResourceBundles.DEFAULT.getResourceBundle());
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
