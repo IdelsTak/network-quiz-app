@@ -9,7 +9,7 @@
 
 <VBox prefWidth="800.0" spacing="12.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="connectionStatusLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="30.0" style="-fx-font-weight: bold; -fx-border-color: gray; -fx-background-color: white;" text="&lt;Not Connected to Server&gt;" />
+      <Label fx:id="connectionStatusLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="30.0" style="-fx-font-weight: bold; -fx-border-color: gray;" text="&lt;Not Connected to Server&gt;" />
       <VBox>
          <children>
             <Label style="-fx-font-weight: bold;" text="Staff Name" />
@@ -78,7 +78,7 @@
             <HBox spacing="12.0">
                <children>
                   <TextField fx:id="answerTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-                  <Button fx:id="submitButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Submit" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="submitButton" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Submit" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>
