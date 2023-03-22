@@ -9,10 +9,10 @@
 
 <VBox prefWidth="800.0" spacing="12.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="connectionStatusLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="30.0" style="-fx-font-weight: bold; -fx-border-color: gray;" text="&lt;Not Connected to Server&gt;" />
+      <Label fx:id="connectionStatusLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="30.0" style="-fx-font-weight: bold; -fx-border-color: gray;" text="%label.connection.status" />
       <VBox>
          <children>
-            <Label style="-fx-font-weight: bold;" text="Staff Name" />
+            <Label style="-fx-font-weight: bold;" text="%label.staff.name" />
             <TextField fx:id="nameTextField" />
          </children>
          <padding>
@@ -23,13 +23,13 @@
          <children>
             <VBox>
                <children>
-                  <Label style="-fx-font-weight: bold;" text="Topic" />
+                  <Label style="-fx-font-weight: bold;" text="%label.topic" />
                   <TextField fx:id="topicTextField" editable="false" />
                </children>
             </VBox>
             <VBox>
                <children>
-                  <Label style="-fx-font-weight: bold;" text="Question" />
+                  <Label style="-fx-font-weight: bold;" text="%label.question" />
                   <TextField fx:id="questionTextField" editable="false" />
                </children>
                <padding>
@@ -42,31 +42,31 @@
          <children>
             <VBox>
                <children>
-                  <Label style="-fx-font-weight: bold;" text="Option 1" />
+                  <Label style="-fx-font-weight: bold;" text="%label.option1" />
                   <TextField fx:id="option1TextField" editable="false" />
                </children>
             </VBox>
             <VBox>
                <children>
-                  <Label style="-fx-font-weight: bold;" text="Option 2" />
+                  <Label style="-fx-font-weight: bold;" text="%label.option2" />
                   <TextField fx:id="option2TextField" editable="false" />
                </children>
             </VBox>
             <VBox>
                <children>
-                  <Label style="-fx-font-weight: bold;" text="Option 3" />
+                  <Label style="-fx-font-weight: bold;" text="%label.option3" />
                   <TextField fx:id="option3TextField" editable="false" />
                </children>
             </VBox>
             <VBox>
                <children>
-                  <Label style="-fx-font-weight: bold;" text="Option 4" />
+                  <Label style="-fx-font-weight: bold;" text="%label.option4" />
                   <TextField fx:id="option4TextField" editable="false" />
                </children>
             </VBox>
             <VBox>
                <children>
-                  <Label style="-fx-font-weight: bold;" text="Option 5" />
+                  <Label style="-fx-font-weight: bold;" text="%label.option5" />
                   <TextField fx:id="option5TextField" editable="false" />
                </children>
             </VBox>
@@ -74,11 +74,11 @@
       </VBox>
       <VBox>
          <children>
-            <Label style="-fx-font-weight: bold;" text="Answer" />
+            <Label style="-fx-font-weight: bold;" text="%label.answer" />
             <HBox spacing="12.0">
                <children>
                   <TextField fx:id="answerTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-                  <Button fx:id="submitButton" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Submit" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="submitButton" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%button.submit" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>
