@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" spacing="12.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="connectionStatusLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="30.0" style="-fx-font-weight: bold; -fx-border-color: gray; -fx-background-color: white;" text="&lt;Not Connected to Server&gt;" />
@@ -85,19 +84,19 @@
             <VBox maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                <children>
                   <Label text="Linked List" />
-                  <TextArea />
+                  <TextArea fx:id="linkedListTextArea" editable="false" wrapText="true" />
                </children>
             </VBox>
             <VBox maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                <children>
                   <Label text="Binary Tree" />
-                  <TextArea />
+                  <TextArea fx:id="treeTextArea" editable="false" wrapText="true" />
                   <HBox spacing="24.0">
                      <children>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Pre-order" HBox.hgrow="ALWAYS" />
-                        <Button layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="In-order" HBox.hgrow="ALWAYS" />
-                        <Button layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Post-order" HBox.hgrow="ALWAYS" />
-                        <Button layoutX="70.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Tree View" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="preOrderButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Pre-order" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="inOrderButton" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="In-order" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="postOrderButton" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Post-order" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="treeViewButton" layoutX="70.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Tree View" HBox.hgrow="ALWAYS" />
                      </children>
                      <padding>
                         <Insets top="12.0" />
