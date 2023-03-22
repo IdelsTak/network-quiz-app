@@ -3,6 +3,7 @@ package company.policy.client.manager;
 import company.policy.client.core.Attempt;
 import company.policy.client.core.Question;
 import static company.policy.client.manager.QuestionsApplication.LOG_MESSAGES;
+import static company.policy.client.manager.QuestionsApplication.MESSAGES;
 import company.policy.client.manager.bt.BinaryTree;
 import company.policy.client.manager.bt.BinaryTreePrinter;
 import company.policy.client.manager.dll.DoublyLinkedList;
@@ -10,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.Socket;
+import static java.text.MessageFormat.format;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -26,6 +28,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -35,6 +39,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -103,6 +108,15 @@ public class QuestionsView {
     protected void initialize() {
         questionsTable.setItems(questions);
         questionsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        
+        Label placeholder = new Label(format(resources.getString("label.questions.table.placeholder")));
+        placeholder.setPrefHeight(200);
+        placeholder.setMinHeight(200);
+        placeholder.setPadding(new Insets(0, 30, 0, 30));
+        placeholder.setTextAlignment(TextAlignment.CENTER);
+        placeholder.setWrapText(true);
+        placeholder.setDisable(true);
+        questionsTable.setPlaceholder(placeholder);
 
         questionNumberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
         topicColumn.setCellValueFactory(new PropertyValueFactory<>("topic"));
