@@ -58,7 +58,7 @@ import java.util.logging.Logger;
 public class Server {
 
     private static final Logger LOG = Logger.getLogger(Server.class.getName());
-    private static final ResourceBundle MESSAGES = ResourceBundle.getBundle("i18n/messages", Locale.ITALIAN);
+    private static final ResourceBundle MESSAGES = ResourceBundle.getBundle("i18n/messages", Locale.getDefault());
 
     public static void main(String[] args) throws Exception {
         // Create a server socket on the specified port
