@@ -31,6 +31,7 @@ public class QuestionsApplication extends Application {
 
         questionsView.getSendButton().setOnAction(event -> {
             try (Socket socket = new Socket("localhost", 8080); ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
+                questionsView.setConnectedStatus(socket);
                 LOG.log(Level.INFO, "Sending Question..");
                 out.writeObject(questionsView.getQuestionToSend());
 
