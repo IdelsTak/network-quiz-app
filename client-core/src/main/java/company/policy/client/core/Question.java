@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 
 public class Question implements Serializable {
 
-    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("i18n/messages", Locale.ITALIAN);
+    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("i18n/messages", Locale.getDefault());
     private static final long serialVersionUID = 1L;
     private final int number;
     private final String staffName;
