@@ -14,6 +14,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,35 +23,42 @@ public class Server {
     private static final Logger LOG = Logger.getLogger(Server.class.getName());
 
     public static void main(String[] args) throws Exception {
-        int port = 8080;
+        // Create a server socket on the specified port
+        ServerSocket serverSocket = new ServerSocket(8080);
+        LOG.log(Level.INFO, "Server started on port {0}", serverSocket.getLocalPort());
 
-        ServerSocket serverSocket = new ServerSocket(port);
-        LOG.log(Level.INFO, "Server started on port {0}", serverSocket);
+        // Create a thread pool executor with a maximum of 100 threads
+        int maxThreads = 100;
+        ExecutorService executor = Executors.newFixedThreadPool(maxThreads);
 
-        ExecutorService executorService = Executors.newFixedThreadPool(100);
+        // Create a map to store the UUID and corresponding socket for each client
         Map<UUID, Socket> map = new ConcurrentHashMap<>();
 
         while (true) {
             try {
+                // Wait for a client to connect and accept the connection
                 Socket socket = serverSocket.accept();
+                LOG.log(Level.INFO, "Client connected: {0}", socket);
 
-                LOG.log(Level.INFO, "Connected: {0}", socket);
-
+                // Generate a UUID for the client and add it to the map
                 UUID id = UUID.randomUUID();
-
                 map.put(id, socket);
 
-                executorService.submit(() -> {
+                // Submit a new task to the executor to handle the client's requests
+                executor.submit(() -> {
                     try (ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+                        // Read an object from the client's input stream
                         Object read = in.readObject();
 
                         LOG.log(Level.INFO, "Received object {0} from client {1}", new Object[]{read, socket});
 
+                        // Get a list of all sockets except the current one
                         List<Socket> sockets = map.entrySet().stream()
                                 .filter(e -> !Objects.equals(e.getKey(), id))
                                 .map(Entry::getValue)
                                 .toList();
 
+                        // Write the object to all other sockets
                         for (Socket otherSocket : sockets) {
                             ObjectOutputStream out = new ObjectOutputStream(otherSocket.getOutputStream());
                             out.writeObject(read);
@@ -81,7 +89,7 @@ public class Server {
                     }
                 });
             } catch (IOException ex) {
-                LOG.log(Level.SEVERE, null, ex);
+                 LOG.log(Level.SEVERE, "Error accepting client connection", ex);
             }
         }
     }
