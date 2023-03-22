@@ -39,9 +39,20 @@ public class QuestionsApplication extends Application {
 
                 out.writeObject(questionsView.getQuestionToSend());
             } catch (IOException ex) {
-                LOG.log(Level.SEVERE, "Error communicating with server: {0}", ex);
+                LOG.log(Level.SEVERE, "Error communicating with server", ex);
 
                 showPlatformExitDialog();
+            }
+        });
+
+        // Set up stage close event handler
+        stage.setOnCloseRequest(event -> {
+            try {
+                clientSocket.close();
+                listeningThread.interrupt();
+                LOG.log(Level.INFO, "Disconnected from server");
+            } catch (IOException ex) {
+                LOG.log(Level.SEVERE, "Error closing client socket", ex);
             }
         });
 
@@ -49,37 +60,55 @@ public class QuestionsApplication extends Application {
         stage.setScene(scene);
         stage.show();
 
-        new Thread(() -> {
-            while (true) {
-                try (Socket socket = new Socket("localhost", 8080); ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-                    questionsView.setConnectedStatus(socket);
+        listeningThread = new Thread(() -> {
+            try {
+                clientSocket = new Socket("localhost", 8080);
+                questionsView.setConnectedStatus(clientSocket);
 
-                    Object read = in.readObject();
+                while (!Thread.interrupted()) {
+                    try (ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream())) {
 
-                    LOG.log(Level.INFO, "Received: {0}", read);
+                        Object read = in.readObject();
 
-                    if (read instanceof Question question && question.getGivenAnswer() > 0) {
-                        questionsView.handle(question);
+                        LOG.log(Level.INFO, "Received: {0}", read);
+
+                        if (read instanceof Question question && question.getGivenAnswer() > 0) {
+                            questionsView.handle(question);
+                        }
+                    } catch (IOException ex) {
+                        LOG.log(Level.SEVERE, "Error communicating with server", ex);
+                        Platform.runLater(this::showPlatformExitDialog);
+                        break;
+                    } catch (ClassNotFoundException ex) {
+                        LOG.log(Level.SEVERE, "Error deserializing object", ex);
                     }
-                } catch (IOException ex) {
-                    LOG.log(Level.SEVERE, "Error communicating with server: {0}", ex);
-                    Platform.runLater(this::showPlatformExitDialog);
-                    break;
-                } catch (ClassNotFoundException ex) {
-                    LOG.log(Level.SEVERE, "Error deserializing object: {0}", ex);
                 }
+
+                try {
+                    clientSocket.close();
+                    LOG.log(Level.INFO, "Disconnected from server");
+                } catch (IOException ex) {
+                    LOG.log(Level.SEVERE, "Error closing client socket", ex);
+                }
+            } catch (IOException ex) {
+                LOG.log(Level.SEVERE, "Error connecting to server", ex);
             }
 
-        }).start();
+        });
+
+        listeningThread.start();
+
     }
+    private Socket clientSocket;
+    private Thread listeningThread;
 
     private void showPlatformExitDialog() {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Error");
-        alert.setHeaderText("Could not connect to server");
-        alert.setContentText("Please try again later.");
+        alert.setHeaderText("Connection closed");
+        alert.setContentText("The connection to the server was terminated");
         alert.showAndWait();
-        
+
         Platform.exit();
     }
 }
