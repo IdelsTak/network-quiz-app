@@ -34,6 +34,7 @@ public class AnswersApplication extends Application {
 
         answersView.getSubmitButton().setOnAction(event -> {
             try (Socket socket = new Socket("localhost", 8080); ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
+                answersView.setConnectedStatus(socket);
                 out.writeObject(answersView.getQuestionToSend());
             } catch (IOException ex) {
                 LOG.log(Level.SEVERE, null, ex);
