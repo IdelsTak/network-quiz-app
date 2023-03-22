@@ -11,7 +11,10 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class QuestionsApplication extends Application {
@@ -31,11 +34,14 @@ public class QuestionsApplication extends Application {
         questionsView.getSendButton().setOnAction(event -> {
             try (Socket socket = new Socket("localhost", 8080); ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
                 questionsView.setConnectedStatus(socket);
-                LOG.log(Level.INFO, "Sending Question..");
-                out.writeObject(questionsView.getQuestionToSend());
 
+                LOG.log(Level.INFO, "Sending Question: {0}", questionsView.getQuestionToSend());
+
+                out.writeObject(questionsView.getQuestionToSend());
             } catch (IOException ex) {
                 LOG.log(Level.SEVERE, "Error communicating with server: {0}", ex);
+
+                showPlatformExitDialog();
             }
         });
 
@@ -57,11 +63,23 @@ public class QuestionsApplication extends Application {
                     }
                 } catch (IOException ex) {
                     LOG.log(Level.SEVERE, "Error communicating with server: {0}", ex);
+                    Platform.runLater(this::showPlatformExitDialog);
+                    break;
                 } catch (ClassNotFoundException ex) {
-                    LOG.log(Level.SEVERE, null, ex);
+                    LOG.log(Level.SEVERE, "Error deserializing object: {0}", ex);
                 }
             }
 
         }).start();
+    }
+
+    private void showPlatformExitDialog() {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Could not connect to server");
+        alert.setContentText("Please try again later.");
+        alert.showAndWait();
+        
+        Platform.exit();
     }
 }
