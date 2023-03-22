@@ -12,7 +12,7 @@
 
 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" spacing="12.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="connectionStatusLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="30.0" style="-fx-font-weight: bold; -fx-border-color: gray;" text="&lt;Not Connected to Server&gt;" />
+      <Label fx:id="connectionStatusLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="30.0" style="-fx-font-weight: bold; -fx-border-color: gray;" text="%label.connection.status" />
       <HBox maxHeight="1.7976931348623157E308" spacing="24.0" VBox.vgrow="ALWAYS">
          <children>
             <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="0.0" spacing="6.0" HBox.hgrow="ALWAYS">
@@ -20,14 +20,14 @@
                   <TableView fx:id="questionsTable" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                     <columns>
                       <TableColumn fx:id="questionNumberColumn" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="#" />
-                      <TableColumn fx:id="topicColumn" prefWidth="75.0" text="Topic" />
-                        <TableColumn fx:id="subTopicColumn" prefWidth="75.0" text="Sub-topic" />
+                      <TableColumn fx:id="topicColumn" prefWidth="75.0" text="%column.topic" />
+                        <TableColumn fx:id="subTopicColumn" prefWidth="75.0" text="%column.subtopic" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loadQuestionsFile" text="Load questions file" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loadQuestionsFile" text="%button.load.questions" />
                </children>
             </VBox>
             <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="0.0" HBox.hgrow="ALWAYS">
@@ -36,35 +36,35 @@
                      <children>
                         <VBox maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" text="Topic" />
+                              <Label maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" text="%label.topic" />
                               <TextField fx:id="topicTextField" editable="false" />
-                              <Label maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" text="Sub-topic" />
+                              <Label maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" text="%label.subtopic" />
                               <TextField fx:id="subTopicTextField" editable="false" />
-                              <Label maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" text="Question" />
+                              <Label maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" text="%label.question" />
                               <TextField fx:id="questionTextField" editable="false" />
                            </children>
                         </VBox>
                         <VBox maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" text="Option 1">
+                              <Label maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" text="%label.option1">
                                  <padding>
                                     <Insets top="24.0" />
                                  </padding>
                               </Label>
                               <TextField fx:id="optionATextField" editable="false" />
-                              <Label maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" text="Option 2" />
+                              <Label maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" text="%label.option2" />
                               <TextField fx:id="optionBTextField" editable="false" />
-                              <Label maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" text="Option 3" />
+                              <Label maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" text="%label.option3" />
                               <TextField fx:id="optionCTextField" editable="false" />
-                              <Label maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" text="Option 4" />
+                              <Label maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" text="%label.option4" />
                               <TextField fx:id="optionDTextField" editable="false" />
-                              <Label maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" text="Option 5" />
+                              <Label maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold;" text="%label.option5" />
                               <TextField fx:id="optionETextField" editable="false" />
                            </children>
                         </VBox>
                      </children>
                   </VBox>
-                  <Label maxWidth="1.7976931348623157E308" text="Answer (1, 2, 3, 4, or 5)">
+                  <Label maxWidth="1.7976931348623157E308" text="%label.answer">
                      <padding>
                         <Insets top="12.0" />
                      </padding>
@@ -72,7 +72,7 @@
                   <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="12.0">
                      <children>
                         <TextField fx:id="answerTextField" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="sendButton" defaultButton="true" disable="true" mnemonicParsing="false" text="Send" />
+                        <Button fx:id="sendButton" defaultButton="true" disable="true" mnemonicParsing="false" text="%label.send" />
                      </children>
                   </HBox>
                </children>
@@ -83,20 +83,20 @@
          <children>
             <VBox maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                <children>
-                  <Label text="Linked List" />
+                  <Label text="%label.linked.list" />
                   <TextArea fx:id="linkedListTextArea" editable="false" wrapText="true" />
                </children>
             </VBox>
             <VBox maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                <children>
-                  <Label text="Binary Tree" />
+                  <Label text="%label.binary.tree" />
                   <TextArea fx:id="treeTextArea" editable="false" wrapText="true" />
                   <HBox spacing="24.0">
                      <children>
-                        <Button fx:id="preOrderButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Pre-order" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="inOrderButton" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="In-order" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="postOrderButton" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Post-order" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="treeViewButton" layoutX="70.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Tree View" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="preOrderButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%button.preorder" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="inOrderButton" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%button.inorder" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="postOrderButton" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%button.postorder" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="treeViewButton" layoutX="70.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%button.tree.view" HBox.hgrow="ALWAYS" />
                      </children>
                      <padding>
                         <Insets top="12.0" />
