@@ -17,6 +17,41 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * This class implements a server that listens on port 8080 for incoming client
+ * connections.
+ * <p>
+ * When a client connects, the server generates a UUID for the client and adds
+ * it to a map that stores the UUID and corresponding socket for each client.
+ * Then, the server submits a new task to an executor to handle the client's
+ * requests. The task reads an object from the client's input stream, gets a
+ * list of all sockets except the current one from the map, and writes the
+ * object to all other sockets. Finally, the task removes the client's UUID from
+ * the map and closes the socket.
+ * <p>
+ * The code uses a fixed thread pool executor to handle multiple clients
+ * concurrently. This is achieved by submitting new tasks to the executor for
+ * each client that connects to the server. The use of a ConcurrentHashMap to
+ * store the UUID and socket for each client ensures thread safety.
+ * <p>
+ * The code also handles exceptions such as EOFException, IOException, and
+ * ClassNotFoundException that may occur when reading objects from the client's
+ * input stream or writing objects to the sockets of other clients. The code
+ * logs appropriate messages at different levels of severity depending on the
+ * exception.
+ * <p>
+ * It's implementation is basic in that allows multiple clients to communicate
+ * with each other using objects, however, there are a few areas for
+ * improvement, such as adding more error handling and implementing a more
+ * efficient way of sending objects to other clients, such as using a
+ * publish-subscribe messaging system.
+ * <p>
+ * To implement a publish-subscribe messaging system, we can use a library such
+ * as Apache ActiveMQ or Eclipse Mosquitto. Here's an example of how we can
+ * modify the existing code to use ActiveMQ:
+ *
+ * @author hiram-k
+ */
 public class Server {
 
     private static final Logger LOG = Logger.getLogger(Server.class.getName());
@@ -88,7 +123,7 @@ public class Server {
                     }
                 });
             } catch (IOException ex) {
-                 LOG.log(Level.SEVERE, "Error accepting client connection", ex);
+                LOG.log(Level.SEVERE, "Error accepting client connection", ex);
             }
         }
     }
