@@ -50,19 +50,37 @@ public class Question implements Serializable {
 
     public Question from(String staffName, int givenAnswer) {
         return new Question(
-                getNumber(),
+                number,
                 staffName,
-                getTopic(),
-                getSubTopic(),
-                getQuestion(),
-                getOptionA(),
-                getOptionB(),
-                getOptionC(),
-                getOptionD(),
-                getOptionE(),
-                getCorrectAnswer(),
+                topic,
+                subTopic,
+                question,
+                optionA,
+                optionB,
+                optionC,
+                optionD,
+                optionE,
+                correctAnswer,
                 givenAnswer,
-                getAttempt()
+                attempt
+        );
+    }
+
+    public Question from(Attempt attempt) {
+        return new Question(
+                number,
+                staffName,
+                topic,
+                subTopic,
+                question,
+                optionA,
+                optionB,
+                optionC,
+                optionD,
+                optionE,
+                correctAnswer,
+                givenAnswer,
+                attempt
         );
     }
 
