@@ -1,20 +1,20 @@
 package company.policy.client.manager.dll;
 
-import company.policy.client.core.PolicyQuestionModel;
+import company.policy.client.core.Question;
 
 public class Node {
 
-    private final PolicyQuestionModel element;
+    private final Question element;
 
     public Node prev, next;
 
-    public Node(PolicyQuestionModel el, Node prev, Node next) {
+    public Node(Question el, Node prev, Node next) {
         this.element = el;
         this.prev = prev;
         this.next = next;
     }
 
-    public PolicyQuestionModel getElement() {
+    public Question getElement() {
         return element;
     }
 }
