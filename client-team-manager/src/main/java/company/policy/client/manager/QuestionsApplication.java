@@ -21,6 +21,7 @@ public class QuestionsApplication extends Application {
 
     private static final Logger LOG = Logger.getLogger(QuestionsApplication.class.getName());
     public static final ResourceBundle RB = ResourceBundle.getBundle("i18n/messages", Locale.getDefault());
+    private Thread listeningThread;
 
     public static void main(String[] args) {
         launch(args);
@@ -48,11 +49,11 @@ public class QuestionsApplication extends Application {
         // Set up stage close event handler
         stage.setOnCloseRequest(event -> {
             try {
-                clientSocket.close();
                 listeningThread.interrupt();
+                listeningThread.join();
                 LOG.log(Level.INFO, "Disconnected from server");
-            } catch (IOException ex) {
-                LOG.log(Level.SEVERE, "Error closing client socket", ex);
+            } catch (InterruptedException ex) {
+                LOG.log(Level.SEVERE, null, ex);
             }
         });
 
@@ -61,46 +62,30 @@ public class QuestionsApplication extends Application {
         stage.show();
 
         listeningThread = new Thread(() -> {
-            try {
-                clientSocket = new Socket("localhost", 8080);
-                questionsView.setConnectedStatus(clientSocket);
+            while (!Thread.interrupted()) {
+                try (Socket socket = new Socket("localhost", 8080); ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+                    questionsView.setConnectedStatus(socket);
 
-                while (!Thread.interrupted()) {
-                    try (ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream())) {
+                    Object read = in.readObject();
 
-                        Object read = in.readObject();
+                    LOG.log(Level.INFO, "Received: {0}", read);
 
-                        LOG.log(Level.INFO, "Received: {0}", read);
-
-                        if (read instanceof Question question && question.getGivenAnswer() > 0) {
-                            questionsView.handle(question);
-                        }
-                    } catch (IOException ex) {
-                        LOG.log(Level.SEVERE, "Error communicating with server", ex);
-                        Platform.runLater(this::showPlatformExitDialog);
-                        break;
-                    } catch (ClassNotFoundException ex) {
-                        LOG.log(Level.SEVERE, "Error deserializing object", ex);
+                    if (read instanceof Question question && question.getGivenAnswer() > 0) {
+                        questionsView.handle(question);
                     }
-                }
-
-                try {
-                    clientSocket.close();
-                    LOG.log(Level.INFO, "Disconnected from server");
                 } catch (IOException ex) {
-                    LOG.log(Level.SEVERE, "Error closing client socket", ex);
+                    LOG.log(Level.SEVERE, "Error communicating with server", ex);
+                    Platform.runLater(this::showPlatformExitDialog);
+                    break;
+                } catch (ClassNotFoundException ex) {
+                    LOG.log(Level.SEVERE, "Error deserializing object", ex);
                 }
-            } catch (IOException ex) {
-                LOG.log(Level.SEVERE, "Error connecting to server", ex);
             }
-
         });
 
         listeningThread.start();
 
     }
-    private Socket clientSocket;
-    private Thread listeningThread;
 
     private void showPlatformExitDialog() {
         Alert alert = new Alert(AlertType.ERROR);
