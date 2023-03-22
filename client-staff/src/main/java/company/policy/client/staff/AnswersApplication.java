@@ -18,7 +18,6 @@ public class AnswersApplication extends Application {
 
     private static final Logger LOG = Logger.getLogger(AnswersApplication.class.getName());
     public static final ResourceBundle RB = ResourceBundle.getBundle("i18n/messages", Locale.ITALY);
-    private ObjectOutputStream out;
 
     public static void main(String[] args) {
         launch(args);
@@ -34,7 +33,7 @@ public class AnswersApplication extends Application {
         stage.show();
 
         answersView.getSubmitButton().setOnAction(event -> {
-            try(Socket socket = new Socket("localhost", 8080); ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
+            try (Socket socket = new Socket("localhost", 8080); ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
                 out.writeObject(answersView.getQuestionToSend());
             } catch (IOException ex) {
                 LOG.log(Level.SEVERE, null, ex);
@@ -45,8 +44,6 @@ public class AnswersApplication extends Application {
 
             while (true) {
                 try (Socket socket = new Socket("localhost", 8080); ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-                    out = new ObjectOutputStream(socket.getOutputStream());
-
                     answersView.setConnectedStatus(socket);
 
                     Object read = in.readObject();
