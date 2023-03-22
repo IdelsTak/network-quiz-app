@@ -3,6 +3,9 @@ package company.policy.client.staff;
 import company.policy.client.core.Question;
 import java.io.IOException;
 import java.net.Socket;
+import static java.text.MessageFormat.format;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -17,8 +20,12 @@ import javafx.scene.control.TextField;
 
 public class AnswersView {
 
+    private static final Logger LOG = Logger.getLogger(AnswersView.class.getName());
+    public static final ResourceBundle LOG_MESSAGES = ResourceBundle.getBundle("i18n/log_messages", Locale.ITALIAN);
     private final ObjectProperty<Question> questionProperty;
     private Parent root;
+    @FXML
+    private ResourceBundle resources;
     @FXML
     private TextField answerTextField;
     @FXML
@@ -77,11 +84,11 @@ public class AnswersView {
             nameTextField.requestFocus();
             nameTextField.selectAll();
         });
-        
+
         answerTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             setSubmitButtonDisable(newValue);
         });
-        
+
         setSubmitButtonDisable(answerTextField.getText());
     }
 
@@ -107,13 +114,10 @@ public class AnswersView {
     }
 
     void setConnectedStatus(Socket socket) {
-        Platform.runLater(() -> connectionStatusLabel.setText("Connected to: " + socket));
+        Platform.runLater(() -> connectionStatusLabel.setText(format(resources.getString("label.connection.status.connected"), socket)));
     }
-    private static final Logger LOG = Logger.getLogger(AnswersView.class.getName());
 
     void handle(Object object) {
-        LOG.log(Level.INFO, "Handling: {0}", object);
-
         if (object instanceof Question question) {
             questionProperty.setValue(question);
         }
@@ -128,9 +132,9 @@ public class AnswersView {
             try {
                 answer = Integer.parseInt(newValue);
             } catch (NumberFormatException ex) {
-                LOG.log(Level.WARNING, "Couldn't read answer: ", ex.getMessage());
+                LOG.log(Level.WARNING, LOG_MESSAGES.getString("log.warning.couldnt.read"), ex.getMessage());
             }
-            
+
             String name = nameTextField.getText();
 
             submitButton.setDisable(name == null || name.isBlank() || answer <= 0 || answer > 5);
