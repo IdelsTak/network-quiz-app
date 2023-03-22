@@ -197,7 +197,7 @@ public class QuestionsView {
     @FXML
     protected void loadQuestionsFile(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Text File");
+        fileChooser.setTitle(format(resources.getString("filechooser.title.open.text.file")));
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
             try (Scanner scanner = new Scanner(selectedFile)) {
@@ -373,7 +373,7 @@ public class QuestionsView {
     }
 
     void setConnectedStatus(Socket socket) {
-        Platform.runLater(() -> connectionStatusLabel.setText("Connected to: " + socket.toString()));
+        Platform.runLater(() -> connectionStatusLabel.setText(format(resources.getString("label.connection.status.connected"), socket.toString())));
     }
 
 }
