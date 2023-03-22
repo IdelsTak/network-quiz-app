@@ -18,7 +18,6 @@ public class QuestionsApplication extends Application {
 
     private static final Logger LOG = Logger.getLogger(QuestionsApplication.class.getName());
     public static final ResourceBundle RB = ResourceBundle.getBundle("i18n/messages", Locale.getDefault());
-    private ObjectOutputStream out;
 
     public static void main(String[] args) {
         launch(args);
