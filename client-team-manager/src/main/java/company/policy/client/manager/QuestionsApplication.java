@@ -1,5 +1,6 @@
 package company.policy.client.manager;
 
+import company.policy.client.core.Question;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -22,7 +23,6 @@ public class QuestionsApplication extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    private boolean asked;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -47,10 +47,14 @@ public class QuestionsApplication extends Application {
             while (true) {
                 try (Socket socket = new Socket("localhost", 8080); ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
                     questionsView.setConnectedStatus(socket);
-                    
-                    Object readObject = in.readObject();
 
-                    LOG.log(Level.INFO, "Received: {0}", readObject);
+                    Object read = in.readObject();
+
+                    LOG.log(Level.INFO, "Received: {0}", read);
+
+                    if (read instanceof Question question && question.getGivenAnswer() > 0) {
+                        questionsView.handle(question);
+                    }
                 } catch (IOException ex) {
                     LOG.log(Level.SEVERE, "Error communicating with server: {0}", ex);
                 } catch (ClassNotFoundException ex) {
