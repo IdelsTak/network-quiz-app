@@ -20,7 +20,9 @@ import javafx.stage.Stage;
 public class QuestionsApplication extends Application {
 
     private static final Logger LOG = Logger.getLogger(QuestionsApplication.class.getName());
-    public static final ResourceBundle RB = ResourceBundle.getBundle("i18n/messages", Locale.getDefault());
+    public static final ResourceBundle MESSAGES = ResourceBundle.getBundle("i18n/messages", Locale.ITALIAN);
+    public static final ResourceBundle LOG_MESSAGES = ResourceBundle.getBundle("i18n/log_messages", Locale.ITALIAN);
+
     private Thread listeningThread;
 
     public static void main(String[] args) {
@@ -36,11 +38,11 @@ public class QuestionsApplication extends Application {
             try (Socket socket = new Socket("localhost", 8080); ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
                 questionsView.setConnectedStatus(socket);
 
-                LOG.log(Level.INFO, "Sending Question: {0}", questionsView.getQuestionToSend());
+                LOG.log(Level.INFO, LOG_MESSAGES.getString("log.info.sentQuestion"), questionsView.getQuestionToSend());
 
                 out.writeObject(questionsView.getQuestionToSend());
             } catch (IOException ex) {
-                LOG.log(Level.SEVERE, "Error communicating with server", ex);
+                LOG.log(Level.SEVERE, LOG_MESSAGES.getString("log.error.communication"), ex);
 
                 showPlatformExitDialog();
             }
@@ -51,13 +53,13 @@ public class QuestionsApplication extends Application {
             try {
                 listeningThread.interrupt();
                 listeningThread.join();
-                LOG.log(Level.INFO, "Disconnected from server");
+                LOG.log(Level.INFO, LOG_MESSAGES.getString("log.info.disconnected"));
             } catch (InterruptedException ex) {
                 LOG.log(Level.SEVERE, null, ex);
             }
         });
 
-        stage.setTitle(format(RB.getString("title")));
+        stage.setTitle(format(MESSAGES.getString("title")));
         stage.setScene(scene);
         stage.show();
 
@@ -68,17 +70,17 @@ public class QuestionsApplication extends Application {
 
                     Object read = in.readObject();
 
-                    LOG.log(Level.INFO, "Received: {0}", read);
+                    LOG.log(Level.INFO, LOG_MESSAGES.getString("log.info.receivedMessage"), read);
 
                     if (read instanceof Question question && question.getGivenAnswer() > 0) {
                         questionsView.handle(question);
                     }
                 } catch (IOException ex) {
-                    LOG.log(Level.SEVERE, "Error communicating with server", ex);
+                    LOG.log(Level.SEVERE, LOG_MESSAGES.getString("log.error.communication"), ex);
                     Platform.runLater(this::showPlatformExitDialog);
                     break;
                 } catch (ClassNotFoundException ex) {
-                    LOG.log(Level.SEVERE, "Error deserializing object", ex);
+                    LOG.log(Level.SEVERE, LOG_MESSAGES.getString("log.error.deserialization"), ex);
                 }
             }
         });
@@ -89,9 +91,9 @@ public class QuestionsApplication extends Application {
 
     private void showPlatformExitDialog() {
         Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("Connection closed");
-        alert.setContentText("The connection to the server was terminated");
+        alert.setTitle(format(MESSAGES.getString("alert.title")));
+        alert.setHeaderText(format(MESSAGES.getString("alert.header")));
+        alert.setContentText(format(MESSAGES.getString("alert.content")));
         alert.showAndWait();
 
         Platform.exit();
