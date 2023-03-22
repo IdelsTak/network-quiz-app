@@ -97,8 +97,8 @@ public class DoublyLinkedList {
                 pqm.getNumber(),
                 pqm.getTopic(),
                 pqm.getSubTopic(),
-                pqm.getAttempt().getAttempted(),
-                pqm.getAttempt().getCorrect());
+                pqm.getAttempt().getCorrect(),
+                pqm.getAttempt().getAttempted());
     }
 
     public Question deleteEndNode() {
