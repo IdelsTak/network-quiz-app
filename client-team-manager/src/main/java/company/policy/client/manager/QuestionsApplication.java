@@ -20,8 +20,8 @@ import javafx.stage.Stage;
 public class QuestionsApplication extends Application {
 
     private static final Logger LOG = Logger.getLogger(QuestionsApplication.class.getName());
-    public static final ResourceBundle MESSAGES = ResourceBundle.getBundle("i18n/messages", Locale.ITALIAN);
-    public static final ResourceBundle LOG_MESSAGES = ResourceBundle.getBundle("i18n/log_messages", Locale.ITALIAN);
+    public static final ResourceBundle MESSAGES = ResourceBundle.getBundle("i18n/messages", Locale.getDefault());
+    public static final ResourceBundle LOG_MESSAGES = ResourceBundle.getBundle("i18n/log_messages", Locale.getDefault());
 
     private Thread listeningThread;
 
