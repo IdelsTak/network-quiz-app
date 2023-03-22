@@ -21,7 +21,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>libs/</classpathPrefix>
-                            <mainClass>company.policy.server.ChatServer</mainClass>
+                            <mainClass>company.policy.server.Server</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
