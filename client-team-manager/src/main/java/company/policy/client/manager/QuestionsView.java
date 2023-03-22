@@ -46,7 +46,7 @@ import javafx.stage.Stage;
 public class QuestionsView {
 
     private static final Logger LOG = Logger.getLogger(QuestionsView.class.getName());
-    public static final ResourceBundle LOG_MESSAGES = ResourceBundle.getBundle("i18n/log_messages", Locale.ITALIAN);
+    public static final ResourceBundle LOG_MESSAGES = ResourceBundle.getBundle("i18n/log_messages", Locale.getDefault());
     private final Parent root;
     private final ObservableList<Question> questions;
     private final Stage stage;
@@ -92,7 +92,7 @@ public class QuestionsView {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("questions-pane.fxml"));
         fxmlLoader.setController(this);
-        fxmlLoader.setResources(ResourceBundles.ITALIAN.getResourceBundle());
+        fxmlLoader.setResources(ResourceBundles.DEFAULT.getResourceBundle());
         try {
             root = (Parent) fxmlLoader.load();
         } catch (IOException ex) {
