@@ -72,7 +72,7 @@
                   <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="12.0">
                      <children>
                         <TextField fx:id="answerTextField" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="sendButton" defaultButton="true" disable="true" mnemonicParsing="false" text="%label.send" />
+                        <Button fx:id="sendButton" defaultButton="true" disable="true" mnemonicParsing="false" text="%button.send" />
                      </children>
                   </HBox>
                </children>
