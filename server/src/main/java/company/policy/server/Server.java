@@ -1,5 +1,6 @@
 package company.policy.server;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -110,8 +111,18 @@ public class Server {
                         }
 
                         map.remove(id);
+                    } 
+                    // The EOFException is being thrown by the ObjectInputStream
+                    // when it tries to read an object from the input stream but
+                    // finds that the end of the stream has been reached.
+                    // This could happen if the client closes the connection 
+                    // abruptly or sends an incomplete message.
+                    catch (EOFException ex) {
+                        LOG.log(Level.WARNING, "Connection closed unexpectedly: {0}", socket);
+                        map.remove(id);                        
                     } catch (IOException | ClassNotFoundException ex) {
                         LOG.log(Level.SEVERE, null, ex);
+                        map.remove(id);
                     } finally {
                         try {
                             socket.close();
