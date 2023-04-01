@@ -12,8 +12,7 @@ public class ChatClientThreadTest {
 
     @Test
     public void testSomeMethod() {
-        System.out.println(MessageFormat.format(BUNDLE.getString("error_getting_input_stream"), "hello"));
-        System.out.println(format(BUNDLE.getString("listening_error"), "blah blah"));
+        System.out.println(MessageFormat.format(BUNDLE.getString("unknown"), "Unknown"));        
     }
 
 }
